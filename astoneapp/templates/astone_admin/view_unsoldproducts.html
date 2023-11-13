@@ -1,0 +1,136 @@
+{% extends 'astone_admin/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid px-4">
+    <h1 class="mt-4">View UnSold Products        <a href="{% url 'view_unsoldproducts' %}" class="btn btn-success"><i class="fas fa-sync-alt"></i></a></h1>    
+</div>
+
+<div class="container mt-5">
+
+    <form method="get" class="mb-4">
+        <div class="input-group">
+            <input type="text" name="query" class="form-control" placeholder="Search By Product Name / Product Code / Coupon Code">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </form>
+
+
+    <form method="get">
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <label for="category">Category</label>
+                <select name="category" class="form-select">
+                    <option value="">Select Category</option>
+                    {% for i in pcategory %}
+                    <option value="{{i.category}}">{{i.category}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="subcategory">Subcategory</label>
+                <select name="subcategory" class="form-select">
+                    <option value="">Select Category</option>
+                    {% for i in psubcategory %}
+                    <option value="{{i.name}}">{{i.name}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="price_from">Price From</label>
+                <input type="text" name="price_from" class="form-control" placeholder="Enter Price From">
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="price_to">Price To</label>
+                <input type="text" name="price_to" class="form-control" placeholder="Enter Price To">
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Apply Filters</button>
+    </form>
+
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %} style="list-style-type:none; color:green; text-align:center; font-size:18px; font-weight:600;">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <br>
+    <hr>
+
+    <form method="post" action="{% url 'add_to_pdf_cart' %}">
+        {% csrf_token %}
+        <div class="container">
+            <div class="row">
+                <h5 style="text-align:center;">Number Of UnSold Products in Inventory: <span style="color:red;">{{ num_products }}</span></h5>
+                <span style="color:white;"><hr></span>
+                <div class="col-12 d-flex justify-content-center align-items-center">
+                    <button type="submit" class="btn btn-danger">Add Selected Items To PDF</button>
+                </div>
+            </div>
+        </div>
+        <br>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>                    
+                        <label>
+                            <input type="checkbox" id="select-all-checkbox"> Select All
+                        </label>
+                    </th>                    
+                    <th>Unique Id</th>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Subcategory</th>
+                    <th>Product Code</th>
+                    <th>MRP</th>
+                    <th>Reward Amount</th>
+                    <th>Coupon Code</th>
+                    <th>QR Code</th>
+                    <th>PDF</th>
+
+                </tr>
+            </thead>
+            <tbody style="text-align:center;">
+                {% for i in products %}
+                <tr>
+                    <td>
+                        <input type="checkbox" name="selected_items" value="{{i.pk}}">
+                    </td>
+                    <td>{{i.pk}}</td>
+                    <td>{{i.name}}</td>
+                    <td>{{i.category}}</td>
+                    <td>{{i.subcategory}}</td>
+                    <td>{{i.productcode}}</td>
+                    <td>₹{{i.MRP}}</td>
+                    <td>₹{{i.reward_amount}}</td>
+                    <td>{{i.coupon_code}}</td>
+                    <td><a href="{{i.imageURL}}" target="_blank"><img src="{{i.imageURL}}" alt="QR Code" height="60px"></a></td>
+                    <td>
+                        {% if i.pdf %}
+                            <i class="fas fa-check" style="color: green;"></i>
+                        {% else %}
+                            <i class="fas fa-times" style="color: red;"></i>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        {% comment %} <button type="submit" class="btn btn-danger">Add Selected Items To PDF</button> {% endcomment %}
+    </form>
+    
+</div>
+<script>
+    // Function to toggle all checkboxes when the "Select All" checkbox is clicked
+    document.getElementById('select-all-checkbox').addEventListener('change', function () {
+        var checkboxes = document.querySelectorAll('input[type="checkbox"][name="selected_items"]');
+        checkboxes.forEach(function (checkbox) {
+            checkbox.checked = document.getElementById('select-all-checkbox').checked;
+        });
+    });
+</script>
+
+{% endblock %}

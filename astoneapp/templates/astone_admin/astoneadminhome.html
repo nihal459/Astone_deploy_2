@@ -1,0 +1,91 @@
+{% extends 'astone_admin/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+
+<div class="container-fluid px-4">
+    <h1 class="mt-4">Dashboard</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item active">Admin Panel</li>
+    </ol>
+    <div class="row">
+        <div class="col-xl-3 col-md-6">
+            <a href="{% url 'view_soldproducts' %}" style="text-decoration:none;"><div class="card bg-primary text-white mb-4">
+                <div class="card-body" style="text-align:center; font-weight:600; font-size:20px; text-decoration:none;">Sold Products</div>
+                <div class="card-footer d-flex align-items-center justify-content-between">
+                    <br>
+                </div>
+            </div></a>
+        </div>
+        <div class="col-xl-3 col-md-6">
+            <a href="{% url 'view_unsoldproducts' %}" style="text-decoration:none;"><div class="card bg-warning text-white mb-4">
+                <div class="card-body" style="text-align:center; font-weight:600; font-size:20px; text-decoration:none;">Unsold Products</div>
+                <div class="card-footer d-flex align-items-center justify-content-between">
+                    <br>
+                </div>
+            </div></a>
+        </div>
+        <div class="col-xl-3 col-md-6">
+            <a href="{% url 'view_rewards' %}" style="text-decoration:none;"><div class="card bg-success text-white mb-4">
+                <div class="card-body" style="text-align:center; font-weight:600; font-size:20px; color:white; text-decoration:none;">Manage Rewards</div>
+                <div class="card-footer d-flex align-items-center justify-content-between">
+                    <br>
+                </div>
+            </div></a>
+        </div>
+        <div class="col-xl-3 col-md-6">
+            <div class="card bg-danger text-white mb-4">
+                <a href="{% url 'referralpayment' %}" style="text-decoration:none;"><div class="card-body" style="text-align:center; font-weight:600; font-size:20px; color:white; text-decoration:none;">Manage Referral</div>
+                <div class="card-footer d-flex align-items-center justify-content-between">
+                    <br>
+                </div></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid px-4">
+    <h1 class="mt-4">Top 10 Referral Codes</h1>
+</div>
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %} style="list-style-type: none; color:red;">{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<div class="container mt-5">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Referral Code</th>
+                <th>Usage Count</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entry in top_referral_codes %}
+                <tr>
+                    <td>
+                        {% if entry.refferalcode == 'Nil' %}
+                            Without Any Referral
+                        {% else %}
+                            <a href="{% url 'viewusersingle2' entry.refferalcode %}" style="text-decoration:none; color:black;">{{ entry.refferalcode }}</a>
+                        {% endif %}
+                    </td>
+                    
+                    <td>{{ entry.code_count }}</td>
+                </tr>
+          {% endfor %}
+
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
+
+
+

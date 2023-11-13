@@ -1,0 +1,44 @@
+{% extends 'astone_admin/base.html' %}
+{% load static %}
+{% block content %}
+<div class="container-fluid px-4">
+    <h1 class="mt-4">View All Reward Requests        <a href="{% url 'view_requests' %}" class="btn btn-success"><i class="fas fa-sync-alt"></i></a></h1>
+</div>
+<br>
+<form method="get" class="mb-4 px-4">
+    <div class="input-group">
+        <input type="text" name="query" class="form-control" placeholder="Search By Username / Userid" >
+        <button type="submit" class="btn btn-primary">Search</button>
+    </div>
+</form>
+<div class="container mt-5">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>User Id</th>
+                <th>Username</th>
+                <th>Requested Amount</th>
+                <th>Requested On</th>
+                <th>Payment Status</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody style="text-align:center;">
+            {% for i in requests %}
+
+            <tr>
+                <td><a href="{% url 'viewusersingle' i.userid %}" style="text-decoration:none; color:black;">{{i.userid}}</a></td>
+                <td><a href="{% url 'viewusersingle' i.userid %}" style="text-decoration:none; color:black;">{{i.username}}</a></td>
+                <td style="color:green; font-weight:600;">₹{{i.rewardamount}}</td>
+                <td>{{i.requestedon|date:"d-m-Y"}}</td>
+                <td>{{i.paymentstatus}}</td>
+                <td><a href="{% url 'update_request' i.pk %}" class="btn btn-primary">Update</a></td>
+                <td><a href="{% url 'delete_request' i.pk %}" class="btn btn-danger">Delete</a></td>
+            </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+</div>
+{% endblock %}

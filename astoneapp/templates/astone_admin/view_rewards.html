@@ -1,0 +1,70 @@
+{% extends 'astone_admin/base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    .center {
+        display: flex;
+        justify-content: center; /* Horizontal centering */
+        align-items: center; /* Vertical centering */
+    }
+</style>
+<div class="container-fluid px-4">
+    <h1 class="mt-4">View All Rewards           <a href="{% url 'view_rewards' %}" class="btn btn-success"><i class="fas fa-sync-alt"></i></a></h1>
+
+</div>
+<br>
+<form method="get" class="mb-4 px-4">
+    <div class="input-group">
+        <input type="text" name="query" class="form-control" placeholder="Search By Username / Coupon Code / Refferal Code / Product" >
+        <button type="submit" class="btn btn-primary">Search</button>
+    </div>
+</form>
+<br>
+    
+<div class="center">
+    <a href="#" class="btn btn-success" style="color:white;">Total Reward Amounts To Pay: ₹{{total_reward_amount}}</a>
+</div>
+
+<div class="container mt-5">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>User Id</th>
+                <th>Username</th>
+                <th>Coupon Code</th>
+                <th>Reward Amount</th>
+                <th>Referral Code Used</th>
+                <th>Product Id</th>
+                <th>Product Name</th>
+                <th>Product Price</th>
+                <th>Scanned On</th>
+                {% comment %} <th>Payment Status</th> {% endcomment %}
+                {% comment %} <th></th> {% endcomment %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in rewards %}
+            <tr>
+                <td><a href="{% url 'viewusersingle' i.userid %}" style="text-decoration:none; color:black;">{{i.userid}}</a></td>
+                <td><a href="{% url 'viewusersingle' i.userid %}" style="text-decoration:none; color:black;">{{i.username}}</a></td>
+                <td><a href="{% url 'viewproductsingle' i.productid %}" style="text-decoration:none; color:black;">{{i.couponcode}}</a></td>
+                <td style="color:green; font-weight:600;">₹{{i.rewardamount}}</td>
+                <td><a href="{% url 'viewusersingle2' i.refferalcode %}" style="text-decoration:none; color:black;">{{i.refferalcode}}</a></td>
+                <td><a href="{% url 'viewproductsingle' i.productid %}" style="text-decoration:none; color:black;">{{i.productid}}</a></td>
+                <td><a href="{% url 'viewproductsingle' i.productid %}" style="text-decoration:none; color:black;">{{i.productname}}</a></td>
+                <td>₹{{i.productprice}}</td>
+                <td>{{ i.scannedon|date:"d-m-Y" }}</td>
+                {% comment %} <td>{{i.paymentstatus}}</td> {% endcomment %}
+
+                {% comment %} <td><a href="{% url 'update_reward' i.pk %}" class="btn btn-primary">Update</a></td> {% endcomment %}
+
+            </tr>
+            {% endfor %}
+            <!-- Add more rows as needed -->
+        </tbody>
+    </table>
+</div>
+
+
+{% endblock %}

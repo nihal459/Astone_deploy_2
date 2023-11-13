@@ -1,0 +1,92 @@
+{% extends 'general/web_base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="container header bg-white p-0">
+    <div class="row g-0 align-items-center flex-column-reverse flex-md-row">
+        <div class="col-md-6 p-5 mt-lg-5">
+            <h1 class="display-5 animated wow fadeInDown mb-4" data-wow-delay="0.1s">Subproducts</h1> 
+                <nav aria-label="breadcrumb animated fadeIn">
+                <ol class="breadcrumb text-uppercase">
+                    <li class="breadcrumb-item wow fadeInUp"><a href="{% url 'index' %}" data-wow-delay="0.2s">Home</a></li>
+                    <li class="breadcrumb-item wow fadeInUp"><a href="{% url 'categories' %}" data-wow-delay="0.2s">Categories</a></li>
+                    <li class="breadcrumb-item wow fadeInUp"><a href="#" data-wow-delay="0.2s">Subcategories</a></li>
+                    <li class="breadcrumb-item wow fadeInUp"><a href="#" data-wow-delay="0.2s">Subproducts</a></li>
+
+                </ol>
+            </nav>
+            <!-- seach bar start -->
+
+            <!-- <a href="" class="btn btn-primary py-3 px-4 me-3 mx-5 mt-4  " id="search-btn"><i class="fas fa-search "></i><span class="ps-3 " style="letter-spacing: 2px;">Search</span></a> -->
+            <div  class="btn btn-primary py-3 px-5 me-3 mx-5 mt-4  " id="search-btn"><i class="fas fa-search "></i><span class="ps-3 " style="letter-spacing: 1px;">Search</span></div>
+            <form action="{% url 'products' %}" method="GET" class="search-form">
+                <input type="search" name="search_query" id="search-box" placeholder="Search for a product...">
+                <button type="submit" class="btnm"><label for="search-box" class="fas fa-search"></label></button>
+            </form>
+            <!-- search bar ends  -->
+        </div>
+        <div class="col-md-6 animated fadeIn">
+            <div class="owl-carousel header-carousel">
+                <div class="owl-carousel-item">
+                    <img class="img-fluid" src="{% static 'webimg/BANNER 1000 X 1000/BANNER 1-1.jpg' %}" alt="" style="border-radius: 0px 0px 50px 50px;">
+                </div>
+                <div class="owl-carousel-item">
+                    <img class="img-fluid" src="{% static 'webimg/BANNER 1000 X 1000/BANNER 1-2.jpg' %}" alt="" style="border-radius: 0px 0px 50px 50px;">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Header End -->
+
+{% comment %} <div class="container">
+    <div class="row">
+        {% for i in products %}
+        <div class="col-lg-4 col-md-4 col-sm-6 col-6 mb-4">
+            <a href="{% url 'viewproductsingleuser' i.pk %}" class="product-link" style="color:black;">
+                <div class="product-card">
+                    <img src="{{i.images.imageURL}}" alt="{{i.name}}" class="product-image img-fluid">
+                    <div class="product-info">
+                        <p class="product-name">{{i.name}}</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</div> {% endcomment %}
+
+            <!-- Product List Start -->
+            <div class="container-xxl py-5 pt-5">
+                <div class="container">
+                    <div class="row g-0 gx-5 align-items-end">
+                        <div class="col-lg-6">
+                            <div class="text-start mx-auto mb-5 wow slideInLeft" data-wow-delay="0.1s">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-content">
+                        <div id="tab-1" class="tab-pane fade show p-0 active">
+                            <div class="row g-4">
+                                {% for i in products %}
+                                <div class="col-lg-3 col-md-6 col-sm-6 col-6 wow fadeInUp rounded" data-wow-delay="0.1s">
+                                    <div class="property-item rounded overflow-hidden">
+                                        <div class="position-relative overflow-hidden">
+                                            <a href="{% url 'product' i.pk %}"><img class="img-fluid" src="{{i.images.imageURL}}" alt="{{i.name}}"></a>
+                                        </div>
+                                        <div class="p-4 pb-0">
+                                            <a class="d-block h6 mb-5 text-center" href="">{{i.name}}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+{% endblock %}

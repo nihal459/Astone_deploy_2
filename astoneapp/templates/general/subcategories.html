@@ -1,0 +1,78 @@
+{% extends 'general/web_base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+
+        <!-- Header Start -->
+
+
+        <div class="container header bg-white p-0">
+            <div class="row g-0 align-items-center flex-column-reverse flex-md-row">
+                <div class="col-md-6 p-5 mt-lg-5">
+                    <h1 class="display-5 animated wow fadeInDown mb-4" data-wow-delay="0.1s">Subcategories</h1> 
+                        <nav aria-label="breadcrumb animated fadeIn">
+                        <ol class="breadcrumb text-uppercase">
+                            <li class="breadcrumb-item wow fadeInUp"><a href="{% url 'index' %}" data-wow-delay="0.2s">Home</a></li>
+                            <li class="breadcrumb-item wow fadeInUp"><a href="{% url 'categories' %}" data-wow-delay="0.2s">Categories</a></li>
+                            <li class="breadcrumb-item wow fadeInUp"><a href="#" data-wow-delay="0.2s">Subcategories</a></li>
+
+                        </ol>
+                    </nav>
+                    <!-- seach bar start -->
+    
+
+                    <!-- search bar ends  -->
+                </div>
+                <div class="col-md-6 animated fadeIn">
+                    <div class="owl-carousel header-carousel">
+                        <div class="owl-carousel-item">
+                            <img class="img-fluid" src="{% static 'webimg/BANNER 1000 X 1000/BANNER 1-1.jpg' %}" alt="" style="border-radius: 0px 0px 50px 50px;">
+                        </div>
+                        <div class="owl-carousel-item">
+                            <img class="img-fluid" src="{% static 'webimg/BANNER 1000 X 1000/BANNER 1-2.jpg' %}" alt="" style="border-radius: 0px 0px 50px 50px;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Header End -->
+
+
+
+            <!-- Product List Start -->
+            <div class="container-xxl py-5 pt-5">
+                    <div class="container">
+                        <div class="row g-0 gx-5 align-items-end">
+                            <div class="col-lg-6">
+                                <div class="text-start mx-auto mb-5 wow slideInLeft" data-wow-delay="0.1s">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-content">
+                            <div id="tab-1" class="tab-pane fade show p-0 active">
+                                <div class="row g-4">
+                                    {% for subcategory in subcategories %}
+                                    <div class="col-lg-3 col-md-6 col-sm-6 col-6 wow fadeInUp rounded" data-wow-delay="0.1s">
+                                        <div class="property-item rounded overflow-hidden">
+                                            <div class="position-relative overflow-hidden">
+                                                <a href="{% url 'subproducts' subcategory.pk %}"><img class="img-fluid" src="{% static 'img/Astone Logo.png' %}" alt="{{ category.category }}"></a>
+                                            </div>
+                                            <div class="p-4 pb-0">
+                                                <a class="d-block h6 mb-5 text-center" href="">{{ subcategory.name }}</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+                <!-- Property List End -->
+
+
+
+
+{% endblock %}

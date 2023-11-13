@@ -1,0 +1,122 @@
+{% extends 'astone_admin/base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<!-- Custom CSS for additional styling -->
+<style>
+    /* Add custom styles here */
+    .product-container {
+        text-align: center;
+        padding: 20px;
+    }
+
+    .product-image {
+        max-width: 100%;
+    }
+
+    .product-details {
+        text-align: left;
+        padding: 20px;
+    }
+
+    .qr-code {
+        max-width: 100%;
+    }
+
+    .youtube-container {
+        text-align: center;
+    }
+
+    ul li
+    {
+        font-size:16px;
+    }
+
+
+    .centered-content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
+</head>
+<body>
+{% if error_message %}
+    <p style="color: red; margin:20px; font-size:25px;">{{ error_message }}</p>
+{% else %}
+<div class="container">
+<div class="row">
+    <div class="col-md-12 product-container">
+        <!-- Product Image -->
+        <img src="{{get_product.images.imageURL}}" alt="Product Image" class="product-image" height="250px">
+        <!-- Product Name -->
+        <h2>{{get_product.name}}</h2>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6 product-details">
+        <!-- Product Details -->
+        <h3>Product Details</h3>
+        <ul>
+            <li>Product Id: {{get_product.pk}}</li>
+            <li>Product Code: <span style="color:red; font-weight:600;">{{get_product.productcode}}</span></li>
+            <li>Category: {{get_product.category}}</li>
+            <li>Subcategory: {{get_product.subcategory}}</li>
+            <br>
+            <li>Description: {{get_product.description}}</li>
+            <br>
+            <li>Advantages: {{get_product.advantages}}</li>
+            <br>
+            <li>Suitable Surfaces: {{get_product.suitable_surface}}</li>
+            <br>
+            <li>Application: {{get_product.application}}</li>
+            <br>
+            <li>Additional Information: {{get_product.additional_information}}</li>
+            <br>
+            <li>Reward Amount: <span style="color:blue; font-weight:600;">₹{{get_product.reward_amount}}</span></li>
+            <li>MRP: <span style="color:green; font-weight:600;">₹{{get_product.MRP}}</span></li>
+            <li>Coupon Code: <span style="color:orange; font-weight:600;">{{get_product.coupon_code}}</span></li>
+        </ul>
+    </div>
+    <div class="col-md-6 product-container">
+        <!-- QR Code -->
+        <img src="{{get_product.imageURL}}" alt="QR Code" class="qr-code">
+        <!-- YouTube Video -->
+        <div class="youtube-container">
+            <iframe width="500" height="315" src="{{get_product.youtube_link}}" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+</div>
+</div>
+<br>
+<br>
+{% if request.user.is_admin %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 centered-content">
+                <!-- Edit Button -->
+                <a href="{% url 'editproduct' get_product.pk %}" class="btn btn-primary">Edit This Product</a>
+            </div>
+        </div>
+    </div>
+
+{% else %}
+    <div></div>
+
+{% endif %}
+
+<br>
+<br>
+
+
+<!-- Add Bootstrap JS scripts (optional) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+{% endif %}
+{% endblock %}

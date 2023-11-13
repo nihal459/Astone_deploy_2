@@ -1,0 +1,110 @@
+{% extends 'astone_admin/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid px-4">
+    <h1 class="mt-4">View Products        <a href="{% url 'view_product' %}" class="btn btn-success"><i class="fas fa-sync-alt"></i></a></h1>    
+</div>
+
+<div class="container mt-5">
+
+    {% comment %} <form method="get" class="mb-4">
+        <div class="input-group">
+            <input type="text" name="query" class="form-control" placeholder="Search By Product Name">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </form> {% endcomment %}
+
+    <form method="get" class="mb-4">
+        <div class="input-group">
+            <input type="text" name="query" class="form-control" placeholder="Search By Product Name">
+            <input type="text" name="productcode" class="form-control" placeholder="Search By Product Code">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </form>
+    
+
+    <form method="get">
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <label for="category">Category</label>
+                <select name="category" class="form-select">
+                    <option value="">Select Category</option>
+                    {% for i in pcategory %}
+                        <option value="{{i.category}}">{{i.category}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="subcategory">Subcategory</label>
+                <select name="subcategory" class="form-select">
+                    <option value="">Select Category</option>
+                    {% for i in psubcategory %}
+                    <option value="{{i.name}}">{{i.name}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="price_from">Price From</label>
+                <input type="text" name="price_from" class="form-control" placeholder="Enter Price From">
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="price_to">Price To</label>
+                <input type="text" name="price_to" class="form-control" placeholder="Enter Price To">
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Apply Filters</button>
+    </form>
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %} style="list-style-type:none; color:green; text-align:center; font-size:18px; font-weight:600;">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <br>
+
+
+    <h5 style="text-align:center;">Number Of Unique Products: <span style="color:green;">{{ num_unique_products }}</span></h5>
+    <span style="color:white;"><hr></span>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Unique Id</th>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Subcategory</th>
+                <th>Product Code</th>
+                <th>MRP</th>
+                <th>Reward Amount</th>
+ 
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in products %}
+            <tr>
+                <td>{{i.pk}}</td>
+                <td>{{i.name}}</td>
+                <td>{{i.category}}</td>
+                <td>{{i.subcategory}}</td>
+                <td>{{i.productcode}}</td>
+                <td>₹{{i.MRP}}</td>
+                <td>₹{{i.reward_amount}}</td>
+                <td><a href="{% url 'viewproductsingle' i.pk %}" class="btn btn-primary">View</a></td>
+                {% if request.user.is_admin %}
+                    <td><a href="{% url 'delete_product' i.pk %}" class="btn btn-danger">Delete</a></td>
+                {% else %}
+                    <td></td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+            <!-- Add more rows as needed -->
+        </tbody>
+    </table>
+</div>
+
+
+{% endblock %}

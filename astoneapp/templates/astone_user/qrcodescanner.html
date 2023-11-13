@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Scanner</title>
+    <style>
+
+        #scanner
+        {
+            width:100%;
+            left:0;
+            transform: scaleX(-1);
+
+        }
+        /* Style the coupon code input */
+        #coupon-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px; /* Adjust the margin as needed */
+        }
+
+        #couponcode {
+            width: 300px; /* Adjust the width as needed */
+            padding: 10px;
+            border: 2px solid #3498db; /* Blue border */
+            border-radius: 5px;
+            font-size: 16px;
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        /* Style the submit button */
+        input[type="submit"] {
+            background-color: #3498db; /* Blue background */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            left:50%;
+            transform:translate(-50%, -50%);
+            position:absolute;
+        }
+
+        /* Style the close button */
+        #close-scan {
+            background-color: red;
+            border: none;
+            color: white; /* Red color for the "X" button */
+            font-size: 28px;
+            cursor: pointer;
+            position: absolute;
+            font-weight:600;
+            padding:5px;
+            width:50px;
+            height:50px;
+            top: 0;
+            right:0;
+        }
+
+        .swapbtn
+        {
+            background-color: #3498db;
+            border: none;
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+            position: absolute;
+            padding:5px;
+            top: 0;
+            left:0;
+            width:50px;
+            height:50px;
+        }
+
+        .home
+        {
+            text-decoration:none;
+            color:white;
+
+            padding:12px;
+            font-size:22px;
+            background-color:#3498db;
+            left:50%;
+            transform:translate(-50%, -50%);
+            position:absolute;
+
+        }
+
+
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <script src="https://cdn.rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
+</head>
+<body>
+        <button id="close-scan" style="display: none;" class="closebtn">X</button>
+        <button id="toggle-camera" class="swapbtn"><i class="fas fa-sync-alt"></i></button>
+
+        <br>
+        <a href="{% url 'customer_home' %}" class="home"><i class="fas fa-home"></i></a>
+        <br>
+        <h2 style="color:red; text-align:center;">{{message}}</h2>
+        <div id="coupon-container">
+            <form id="qr-form" action="{% url 'addReward' %}" method="POST">
+                {% csrf_token %}
+                <input type="text" name="couponcode" id="couponcode" placeholder="Enter Coupon Code Manually">
+                <br>
+                <br>
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+        <br>
+        <br>
+        <video id="scanner" class="vid"></video>
+
+    <script>
+
+        const scanner = new Instascan.Scanner({ video: document.getElementById('scanner') });
+        const qrForm = document.getElementById('qr-form');
+        const couponCodeInput = document.getElementById('couponcode');
+
+        // Function to handle QR code scanning
+        function handleQRCodeScan(content) {
+            couponCodeInput.value = content;
+            qrForm.submit();
+        }
+
+        // Event listeners
+        const closeScanButton = document.getElementById('close-scan');
+        const scannerVideo = document.getElementById('scanner');
+
+        scanner.addListener('scan', handleQRCodeScan);
+        Instascan.Camera.getCameras().then(function (cameras) {
+            if (cameras.length > 0) {
+                scanner.start(cameras[0]);
+                closeScanButton.style.display = 'inline-block';
+                scannerVideo.style.display = 'block';
+            } else {
+                console.error('No cameras found.');
+            }
+        }).catch(function (e) {
+            console.error(e);
+        });
+
+        closeScanButton.addEventListener('click', function () {
+            stopScanner();
+        });
+
+        function stopScanner() {
+            scanner.removeListener('scan', handleQRCodeScan);
+            scanner.stop();
+            closeScanButton.style.display = 'none';
+            scannerVideo.style.display = 'none';
+        }
+
+
+        // Define variables for the cameras
+        let cameras = [];
+        let activeCameraIndex = 0; // Initially, use the first camera in the list
+
+        // Function to toggle between front and back cameras
+// Function to toggle between front and back cameras
+        function toggleCamera() {
+            if (cameras.length > 1) {
+                activeCameraIndex = (activeCameraIndex + 1) % cameras.length;
+                const constraints = { video: { deviceId: { exact: cameras[activeCameraIndex].deviceId } } };
+
+                // Request the non-mirrored camera view (facingMode: 'environment')
+                constraints.video.facingMode = 'environment';
+
+                navigator.mediaDevices.getUserMedia(constraints)
+                    .then(function (stream) {
+                        scanner.stop();
+                        scanner.start(cameras[activeCameraIndex]);
+                        scannerVideo.srcObject = stream;
+
+                        // Apply the transformation for back camera (environment)
+                        if (cameras[activeCameraIndex].facingMode === 'environment') {
+                            scannerVideo.style.transform = 'scaleX(-1)';
+                        } else {
+                            scannerVideo.style.transform = 'none'; // Reset transformation for front camera
+                        }
+                    })
+                    .catch(function (error) {
+                        console.error('Error switching camera:', error);
+                    });
+            }
+        }
+
+
+        // Event listener for the "Switch Camera" button
+        const toggleCameraButton = document.getElementById('toggle-camera');
+        toggleCameraButton.addEventListener('click', toggleCamera);
+
+        // Function to get a list of available cameras and start the default camera
+        function startCamera() {
+            Instascan.Camera.getCameras().then(function (cameraList) {
+                cameras = cameraList;
+                if (cameras.length > 0) {
+                    scanner.start(cameras[activeCameraIndex]);
+                    closeScanButton.style.display = 'inline-block';
+                    scannerVideo.style.display = 'block';
+                } else {
+                    console.error('No cameras found.');
+                }
+            }).catch(function (e) {
+                console.error(e);
+            });
+        }
+
+        // Call the startCamera function to initialize the camera
+        startCamera();
+
+
+    </script>
+
+</body>
+</html>
+
+</body>
+</html>

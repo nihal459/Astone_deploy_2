@@ -1,0 +1,106 @@
+{% extends 'astone_admin/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid px-4">
+    <h1 class="mt-4">Print QR Codes        <a href="{% url 'make_pdf' %}" class="btn btn-success"><i class="fas fa-sync-alt"></i></a></h1>    
+</div>
+
+<div class="container mt-5">
+
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %} style="list-style-type:none; color:green; text-align:center; font-size:18px; font-weight:600;">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <hr>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 d-flex justify-content-center align-items-center">
+                <a href="{% url 'delete_pdf' %}" class="btn btn-danger">Clear All</a>
+            </div>
+        </div>
+    </div>
+    <br>
+
+
+    <form method="post" action="{% url 'customer-pdf-view' %}">
+        {% csrf_token %}
+        <div class="container">
+            <div class="row">
+                <div class="col-12 d-flex justify-content-center align-items-center">
+                    <button type="submit" class="btn btn-info">Add Selected Items To PDF</button>
+                </div>
+            </div>
+        </div>
+        <br>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>                    
+                    <label>
+                        <input type="checkbox" id="select-all-checkbox"> Select All
+                    </label>
+                </th>   
+                <th>Unique Id</th>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Subcategory</th>
+                <th>Product Code</th>
+                <th>MRP</th>
+                <th>Reward Amount</th>
+                <th>Coupon Code</th>
+                <th>QR Code</th>
+                <th>PDF</th>
+                <th>Delete</th>
+
+
+            </tr>
+        </thead>
+        <tbody style="text-align:center;">
+            {% for i in products %}
+            <tr>
+                <td>
+                    <input type="checkbox" name="selected_items" value="{{i.pk}}">
+                </td>
+                <td>{{i.product.pk}}</td>
+                <td>{{i.product.name}}</td>
+                <td>{{i.product.category}}</td>
+                <td>{{i.product.subcategory}}</td>
+                <td>{{i.product.productcode}}</td>
+                <td>₹{{i.product.MRP}}</td>
+                <td>₹{{i.product.reward_amount}}</td>
+                <td>{{i.product.coupon_code}}</td>
+                <td><img src="{{i.product.imageURL}}" alt="QR Code" height="60px"></td>
+                <td>
+                    {% if i.product.pdf %}
+                        <i class="fas fa-check" style="color: green;"></i>
+                    {% else %}
+                        <i class="fas fa-times" style="color: red;"></i>
+                    {% endif %}
+                </td>
+                <td><a href="{% url 'delete_singlepdf' i.pk %}" class="btn btn-danger"><i class="fas fa-trash"></i>
+                </a>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </form>
+</div>
+
+<script>
+    // Function to toggle all checkboxes when the "Select All" checkbox is clicked
+    document.getElementById('select-all-checkbox').addEventListener('change', function () {
+        var checkboxes = document.querySelectorAll('input[type="checkbox"][name="selected_items"]');
+        checkboxes.forEach(function (checkbox) {
+            checkbox.checked = document.getElementById('select-all-checkbox').checked;
+        });
+    });
+</script>
+
+
+{% endblock %}

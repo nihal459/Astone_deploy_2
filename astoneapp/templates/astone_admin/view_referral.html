@@ -1,0 +1,37 @@
+{% extends 'astone_admin/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="container-fluid px-4">
+    <h1 class="mt-4">View Referrals</h1>
+</div>
+
+<div class="container mt-5">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Referral Code</th>
+                <th>Usage Count</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entry in top_referral_codes %}
+                <tr>
+                    <td>
+                        {% if entry.refferalcode == 'Nil' %}
+                            Without Any Referral
+                        {% else %}
+                            <a href="{% url 'viewusersingle2' entry.refferalcode %}" style="text-decoration:none; color:black;">{{ entry.refferalcode }}</a>
+                        {% endif %}
+                    </td>                
+                    <td>{{ entry.code_count }}</td>
+                </tr>
+          {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+{% endblock %}

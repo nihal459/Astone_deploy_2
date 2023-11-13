@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .img
+        {
+            margin-left:300px;
+            margin-top: 100px;
+            z-index:100;
+        }
+        .card
+        {
+            margin-top: -600px;
+        }
+    </style> 
+</head>
+<body>
+    {% for i in pdf_cart_items %}
+        <div class="img">
+            <img src="{{ i.product.qr_code.path }}" alt="" height="175px">
+        </div>
+        <div class="card">
+            <img src="static/img/card.png" alt="" class="logo" height="300px" >
+        </div>
+    {% endfor %} 
+</body>
+</html>
+

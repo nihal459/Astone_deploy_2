@@ -1,0 +1,132 @@
+{% extends "astone_user/base.html" %}
+{% load static %}
+
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+
+<div class="prof">
+  <div><a href="{% url 'customer_home' %}" class="log"> <span class="material-symbols-outlined">
+      arrow_back_ios_new
+      </span></a>
+  </div>
+  <div><h2>PROFILE</h2></div>
+         
+</div>     
+
+  <div class="container">
+      {% if request.user.supercustomer %}
+        <p class="text-center" style="color:gold; background-color:black; padding:5px; border-radius:5px;">You Are A SuperCustomer</p>
+        <h1 class="text-center">{{get_profile.name}}<span style="color:white;">l</span><i class="fas fa-star" style="color:gold;"></i></h1> 
+      {% else %}
+      <h1 class="text-center">{{get_profile.name}}</h1>
+      {% endif %}
+      <p class="text-center">{{get_profile.username}}</p>
+      
+
+      <img src="{{get_profile.imageURL}}" id="profile-pic" style="width:125px; hieght:175px;" >
+      <br>
+      <br>
+      <br>
+
+      <p class="text-center">Your Referral Code: {{ get_profile.referral_code }}</p>
+
+      <!-- Share button for WhatsApp -->
+      <div class="row">
+        <div class="col-md-12 text-center mt-3">
+            <div class="btn btn-success d-inline-block">
+              <a href="https://api.whatsapp.com/send?text=Hi%2C%20Download%20the%20*Astone*%20Application%20from%20the%20Google%20Play%20Store%20%26%20IOS%20App%20Store%0A%0AUse%20my%20referral%20code%3A%20*{{ request.user.referral_code }}*%0A%0A*Get%20interesting%20benefits*%20%21%21%21%0A%0AHave%20a%20nice%20day%20%3A)" style="text-decoration:none; color:white; font-weight: bold;">
+                Share your referral code via WhatsApp
+              </a>
+            </div>
+        </div>
+    </div>
+      
+
+      
+      {% if messages %}
+      <ul class="messages">
+          {% for message in messages %}
+              <li{% if message.tags %} class="{{ message.tags }}"{% endif %} style="color:red;">{{ message }}</li>
+          {% endfor %}
+      </ul>
+      {% endif %}
+      <br>
+      <form action="{% url 'update_profile' get_profile.pk %}" enctype="multipart/form-data" method="POST">
+        {% csrf_token %}          
+        <div class="user-box">
+          <input type="file" name="profile_picture">
+          <label >Add Profile Picture</label>
+          </div>
+        
+        <div class="user-box">
+          <input type="text" name="name" value="{{get_profile.name}}">              
+          <label >Name (As Per Bank Account)</label>
+          </div>
+          
+          <div class="user-box">
+              <input type="text" value="{{get_profile.mobile_number}}" >
+              <label >Phone Number (Not Editable)</label>
+          </div>
+          <div class="user-box">
+              <input type="text" name="upi_id" value="{{get_profile.upi_id}}" >
+              <label >UPI Id / GooglePay Number</label>
+          </div>
+
+          <div class="user-box">
+            <input type="text" name="bank_name" value="{{get_profile.bank_name}}">              
+            <label >Bank Name</label>
+          </div>
+
+
+          <div class="user-box">
+              <input type="number" name="bank_account_number" value="{{ get_profile.bank_account_number }}">
+              <label >Bank Account Number</label>
+          </div>
+          <div class="user-box">
+              <input type="text" name="ifsc_code" value="{{get_profile.ifsc_code}}">
+              <label >IFSC</label>
+          </div>
+
+          <div class="user-box">
+            <input type="text" name="pan_card_name" value="{{get_profile.pan_card_name}}">              
+            <label >PAN Name</label>
+          </div>
+
+          <div class="user-box">
+              <input type="text" name="pan_card_number" value="{{get_profile.pan_card_number}}">
+              <label >PAN Number</label>
+          </div>
+
+          <div class="user-box">
+              {% if get_profile.referred_by %}
+                  <label>Referred By: {{ get_profile.referred_by }}</label>
+              {% else %}
+                  <input type="text" name="referred_by" value="{{ get_profile.referred_by }}">
+                  <label >Referred By:</label>
+              {% endif %}
+          </div>
+        
+          <br>
+          <br>
+          <br>
+          <br>
+
+          <div class="text-center">
+            <input type="submit" value="Update" style="font-size:20px; background-image:linear-gradient(to bottom, #0b1a28, #1a5267); padding:8px; color:white; border-radius:5px;">
+          </div>
+      </form>
+      <br>
+      <br>
+      <hr>
+      <br>
+      <br>
+
+      <div class="text-center mt-3">
+        <a href="{% url 'SignOut' %}" class="btn btn-danger btn-lg p-3">Logout</a>
+      </div>   
+
+    
+</div>  
+  {% endblock %}

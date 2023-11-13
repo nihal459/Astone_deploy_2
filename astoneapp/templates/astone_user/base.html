@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css2/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>
+
+</head>
+<body>
+{% comment %} {% if request.user.is_authenticated %}  {% endcomment %}
+
+{% block content %}
+
+
+
+
+{% endblock %}
+
+    <!-- footer section start  -->
+    {% if request.user.is_authenticated %}
+
+    <footer class="footer">
+      <div>
+        <a href="{% url 'customer_home' %}"><span class="material-symbols-outlined">
+          home
+          </span></a>
+      <!-- <div class="">home</div></a> -->
+      </div>
+      <div>
+        <a href="{% url 'viewmyrewards' %}">
+          <span class="material-symbols-outlined">
+            social_leaderboard
+            </span></a>
+          <!-- <div class="rewards">rewards</div></a> -->
+      </div>
+      <div class="scan-icon">
+          <a href="{% url 'qrcodescanner' %}">
+            <span class="material-symbols-outlined" id="scanner">
+            qr_code_scanner
+            </span></a>
+      </div>
+      <div>
+        <a href="{% url 'viewmyreferrals' %}">
+          <span class="material-symbols-outlined">
+            groups
+            </span></a>
+          <!-- <div class="referral">referral</div></a> -->
+      </div>
+      <div>
+        <a href="{% url 'enquiry' %}">
+          <span class="material-symbols-outlined">
+            chat
+          </span></a>
+          <!-- <div class="enquiry">enquiry</div> -->
+      </div>
+    </footer>
+    {% else %}
+    <footer class="footer">
+      <div>
+        <a href="{% url 'customer_home' %}"><span class="material-symbols-outlined">
+          home
+          </span></a>
+      <!-- <div class="">home</div></a> -->
+      </div>
+      <div>
+        <a href="#">
+          <span class="material-symbols-outlined">
+            social_leaderboard
+            </span></a>
+          <!-- <div class="rewards">rewards</div></a> -->
+      </div>
+      <div class="scan-icon">
+          <a href="#">
+            <span class="material-symbols-outlined" id="scanner">
+            qr_code_scanner
+            </span></a>
+      </div>
+      <div>
+        <a href="#">
+          <span class="material-symbols-outlined">
+            groups
+            </span></a>
+          <!-- <div class="referral">referral</div></a> -->
+      </div>
+      <div>
+        <a href="#">
+          <span class="material-symbols-outlined">
+            chat
+          </span></a>
+          <!-- <div class="enquiry">enquiry</div> -->
+      </div>
+    </footer>
+    {% endif %}
+
+
+     <!-- footer section ends  -->
+    <!-- js files  -->
+    <script src="{% static 'js2/bootstrap.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script>
+      var swiper = new Swiper(".product-slider", {
+          loop:true,
+          spaceBetween: 20, 
+          autoplay: {
+              delay:6500,
+              disableOnInteraction: false,
+          },
+          centeredSlides:true,
+          breakpoints:{
+            0: {
+              slidesPerView: 3,      
+            },
+            768: {
+              slidesPerView: 2,     
+            },
+            1020: {
+              slidesPerView: 3, 
+            },  
+            1100: {
+              lidesPerView: 3, 
+            },   
+            1200: {
+              lidesPerView: 3, 
+            },  
+            1500: {
+              lidesPerView: 3, 
+            }, 
+            1800: {
+              lidesPerView: 3, 
+            }, 
+            2000: {
+              lidesPerView: 3, 
+            }, 
+            2200: {
+              lidesPerView: 3, 
+            },   
+            2500: {
+              lidesPerView: 3, 
+            }, 
+            2800: {
+              lidesPerView: 3, 
+            },   
+            3000: {
+              lidesPerView: 3, 
+            }, 
+
+          },
+        });
+    </script>
+    <script>
+      let searchForm = document.querySelector('.search-form');
+      document.querySelector('#search-btn').onclick =()=>{
+      searchForm.classList.toggle('active');
+      loginForm.classList.remove('active');
+      
+      
+      }
+      let loginForm = document.querySelector('.login-form');
+      document.querySelector('#login-btn').onclick =()=>{
+      loginForm.classList.toggle('active');
+      searchForm.classList.remove('active');
+      
+}
+  </script>
+
+{% comment %} {% else %}
+
+  <style>
+    .centerdiv {
+        background-color: white;
+        position: absolute;
+        width: 250px;
+        height: 250px;
+        border: 2px solid white;
+        transform: translate(-50%, -50%);
+        top: 50%;
+        left: 50%;
+        text-align: center;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* Whitish box shadow */
+    }
+
+
+    .logbut
+    {
+      text-decoration: none;
+      color:white;
+      background-color: indigo;
+      padding:10px;
+      font-size:15px;
+      border-radius: 5px;
+    }
+    body
+    {
+      background-color:#832de2;
+    }
+  </style>
+
+  
+  <div class="centerdiv">
+    <img src="{% static 'img/Astone Logo.png' %}" alt="">
+    <br>
+    <br>
+    <h1 style="color:indigo;">You are not logged in</h1>
+    <br>
+    {% if messages %}
+      <ul class="messages">
+          {% for message in messages %}
+              <li{% if message.tags %} class="{{ message.tags }}"{% endif %} style="list-style-type:none; color:green; font-weight:700;">{{ message }}</li>
+          {% endfor %}
+      </ul>
+    {% endif %}
+    <br>
+    <a href="{% url 'customer_login' %}" class="logbut">Login</a>
+    <br>
+
+
+  </div>
+
+  
+{% endif %} {% endcomment %}
+
+</body>
+</html>

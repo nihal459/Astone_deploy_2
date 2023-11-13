@@ -1,0 +1,276 @@
+{% extends 'general/web_base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+
+        <!-- Header Start -->
+        <div class="container-fluid header bg-white p-0">
+            <div class="row g-0 align-items-center flex-column-reverse flex-md-row">
+                <div class=" col-md-6 p-5 mt-lg-5 ">
+                  <br>
+                  <br>
+                  <br>
+
+      
+                    <h3 class="display-6 animated fadeIn mb-4">Your Partner in Progress for<span class="text-primary"> Construction</span>  Solutions </h3>
+                    <p class="animated fadeIn mb-4 pb-2"> Our extensive range of top-quality chemicals, mixtures, and construction-related products is designed 
+                        to meet the diverse needs of builders, contractors, and construction professionals.</p>
+                    
+                    <!-- seach bar start -->
+    
+                    <!-- <a href="" class="btn btn-primary py-3 px-4 me-3 mx-5 mt-4  " id="search-btn"><i class="fas fa-search "></i><span class="ps-3 " style="letter-spacing: 2px;">Search</span></a> -->
+                    <div  class="btn btn-primary py-3 px-5 me-3 mx-0 mt-4" id="search-btn"><i class="fas fa-search "></i><span class="ps-3 " style="letter-spacing: 1px;">Search</span></div>
+                    <form action="{% url 'products' %}" method="GET" class="search-form">
+                        <input type="search" name="search_query" id="search-box" placeholder="Search for a product...">
+                        <button type="submit" class="btnm"><label for="search-box" class="fas fa-search"></label></button>
+                    </form>
+                    
+                    <!-- search bar ends  -->
+
+
+                </div>
+                <div class="col-md-6 animated fadeIn">
+                    <div class="owl-carousel header-carousel">
+                        <div class="owl-carousel-item">
+                            <img class="img-fluid" src="{% static 'webimg/BANNER 1000 X 1000/BANNER 1-1.jpg' %}" alt="" style="border-radius: 0px 0px 50px 50px;">
+                        </div>
+                        <div class="owl-carousel-item">
+                            <img class="img-fluid" src="{% static 'webimg/BANNER 1000 X 1000/BANNER 1-2.jpg' %}" alt="" style="border-radius: 0px 0px 50px 50px;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Header End -->
+
+
+        
+
+
+        <!-- Category Start -->
+        <div class="container-xxl py-5">
+          <div class="container">
+              <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.3s" style="max-width: 600px;">
+                  <h1 class="mb-3">CATEGORIES</h1>
+                  <p class="wow fadeInUp" data-wow-delay="0.4s">While the company started with a range of Stone Care products, over the years we have added 2 more categories namely – Adhesive and Construction Chemicals. This move has helped us expand in areas directly and indirectly related to Stone Care Solutions.</p>
+              </div>
+              <div class="row g-5">
+                  {% for category in categories %}
+                  <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
+                      <!-- On large screens, display 4 columns (col-lg-3)
+                        On small screens, display 2 columns (col-sm-6) -->
+                      <a class="cat-item d-block bg-light text-center p-4" href="{% url 'subcategories' category.pk %}" style="border-radius: 25px">
+                          <div class="rounded p-4">
+                              <div class="mb-4">
+                                  <img class="img-fluid rounded" src="{{ category.imageURL }}" alt="{{ category.category }}" width="130px" height="130px">
+                              </div>
+                              <h6>{{ category.category }}</h6>
+                          </div>
+                      </a>
+                  </div>
+                  {% endfor %}
+              </div>
+          </div>
+        </div>
+        <!-- Category End -->
+
+
+
+
+        <!-- About Start -->
+        <div class="container-xxl py-5">
+            <div class="container">
+                <div class="row g-5 align-items-center">
+                    <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
+                        <div class="about-img position-relative overflow-hidden p-5 pe-0">
+                            <img class="img-fluid w-100 " src="{% static 'webimg/ABOUT US IMAGE 1000 X 1000/ABOUT US IMAGE 1.jpg' %}" style="border-radius: 0px 50px 50px 0px;">
+                        </div>
+                    </div>
+                    <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
+                        <h1 class="mb-4">ABOUT US</h1>
+                        <p class="mb-4">Astone is a company specializing in the sale of chemicals, mixtures, and products related to construction and stone care. Their product range likely includes various adhesive solutions, construction materials, and accessories designed to cater to the specific needs of builders and contractors. </p>
+                        <p><i class="fa fa-check text-primary me-3"></i> These offerings support the construction industry by providing essential</p>
+                        <p><i class="fa fa-check text-primary me-3"></i>ensuring quality and durability in the construction process</p>
+                        <p><i class="fa fa-check text-primary me-3"></i> Astone's products aim to ensure quality and durability in construction,</p>
+                        <a class="btn btn-primary py-3 px-5 mt-3" href="">Read More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- About End -->
+
+
+              <!-- Product List Start -->
+        <div class="container-xxl py-5">
+          <div class="container">
+              <div class="row g-0 gx-5 align-items-end">
+                  <div class="col-lg-6">
+                      <div class="text-start mx-auto mb-5 wow slideInLeft" data-wow-delay="0.1s">
+                          <h1 class="mb-3">PRODUCTS</h1>
+                          <p class=" wow slideInLeft" data-wow-delay="0.3s">In our construction range, you'll find premium materials like paints, cement alongside essential tools for your projects</p>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="tab-content">
+                  <div id="tab-1" class="tab-pane fade show p-0 active">
+                      <div class="row g-4">
+                          {% for product in products|slice:":4" %}
+                          <!-- Add the |slice:":4" filter to limit the loop to the first 4 products -->
+                          <div class="col-lg-3 col-md-6 col-sm-6 col-6 wow fadeInUp rounded" data-wow-delay="0.1s">
+                              <!-- On large screens, display 4 columns (col-lg-3)
+                                  On medium screens, display 2 columns (col-md-6)
+                                  On small and extra-small screens, display 2 columns (col-sm-6 col-6) -->
+                              <div class="property-item rounded overflow-hidden">
+                                  <div class="position-relative overflow-hidden">
+                                      <a href="{% url 'product' product.pk %}"><img class="img-fluid" src="{{ product.images.imageURL }}" alt="{{ product.name }}"></a>
+                                  </div>
+                                  <div class="p-4 pb-0">
+                                      <h6 class="text-primary mb-3 text-center">₹{{ product.MRP }}</h6>
+                                      <a class="d-block h6 mb-5 text-center" href="">{{ product.name }}</a>
+                                  </div>
+                              </div>
+                          </div>
+                          {% endfor %}
+                          <div class="col-12 text-center wow fadeInUp" data-wow-delay="0.10s">
+                            <a class="btn btn-primary py-3 px-5" href="">Browse More Product</a>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+        </div>
+        <!-- Product List End -->
+
+
+
+        <!-- Call to Action Start -->
+        <div class="container-xxl py-5">
+            <div class="container">
+                <div class="bg-light rounded p-3">
+                    <div class="bg-white rounded p-4" >
+                        <div class="row g-5 align-items-center">
+                            <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
+                                <img class="img-fluid rounded w-100" src="{% static 'webimg/CONTACT IMAGE 1000 X 700/contact image 2.jpg' %}" alt="">
+                            </div>
+                            <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
+                                <div class="mb-4">
+                                    <h1 class="mb-3">Contact With Our Team</h1>
+                                    <p>We encourage you to get in touch with our dedicated team for any inquiries, guidance, or assistance you may need. Our experts are ready to provide you with valuable information and support to ensure your construction projects run smoothly. Feel free to reach out via phone, email, or the contact form on our website.</p>
+                                </div>
+                                <a href="" class="btn btn-primary py-3 px-4 me-2"><i class="fa fa-phone-alt me-2"></i>Make A Call</a>
+                                <a href="" class="btn btn-dark py-3 px-4"><i class="fab fa-whatsapp me-2"></i>Whatsapp</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Call to Action End -->
+
+
+        <!-- Gallery Start -->
+        <div class="container-xxl py-5">
+          <div class="container">
+              <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+                  <h1 class="mb-3">GALLERY</h1>
+                  <p>Explore our gallery page to get a visual glimpse of our impressive construction projects. From stunning stone installations to efficient construction processes, our gallery showcases our expertise and craftsmanship</p>
+              </div>
+              <div class="row g-4">
+                  <div class="col-lg-3 col-md-6 col-sm-6 col-6 wow fadeInUp" data-wow-delay="0.1s">
+                      <div class="team-item rounded overflow-hidden">
+                          <div class="position-relative">
+                              <img class="img-fluid" src="{% static 'webimg/GALLERY IMAGE 700 X 400/GALLERY IMAGE 1-2.jpg' %}" alt="">
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-lg-3 col-md-6 col-sm-6 col-6 wow fadeInUp" data-wow-delay="0.3s">
+                      <div class="team-item rounded overflow-hidden">
+                          <div class="position-relative">
+                              <img class="img-fluid" src="{% static 'webimg/GALLERY IMAGE 700 X 400/GALLERY IMAGE 2.jpg' %}" alt="">
+                          </div>
+                      </div>
+                  </div>
+  
+                  <div class="col-lg-3 col-md-6 col-sm-6 col-6 wow fadeInUp" data-wow-delay="0.7s">
+                      <div class="team-item rounded overflow-hidden">
+                          <div class="position-relative">
+                              <img class="img-fluid" src="{% static 'webimg/GALLERY IMAGE 700 X 400/GALLERY IMAGE 3-1.jpg' %}" alt="">
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="col-lg-3 col-md-6 col-sm-6 col-6 wow fadeInUp" data-wow-delay="0.7s">
+                    <div class="team-item rounded overflow-hidden">
+                        <div class="position-relative">
+                            <img class="img-fluid" src="{% static 'webimg/GALLERY IMAGE 700 X 400/GALLERY IMAGE 4.jpg' %}" alt="">
+                        </div>
+                    </div>
+                </div>
+              </div>
+          </div>
+        </div>
+        <!-- Gallery End -->
+
+
+
+
+
+        <!-- review Start -->
+        <!-- <div class="container-xxl py-5">
+            <div class="container">
+                <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+                    <h1 class="mb-3">Our Clients Say!</h1>
+                    <p> you can find testimonials and reviews from satisfied customers who have experienced our exceptional services. Discover the success stories, feedback, and insights shared by our clients to gain confidence in choosing us for your construction needs. </p>
+                </div>
+                <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="testimonial-item bg-light rounded p-3">
+                        <div class="bg-white border rounded p-4">
+                            <p>Tempor stet labore dolor clita stet diam amet ipsum dolor duo ipsum rebum stet dolor amet diam stet. Est stet ea lorem amet est kasd kasd erat eos</p>
+                            <div class="d-flex align-items-center">
+                                <img class="img-fluid flex-shrink-0 rounded" src="img/testimonial-1.jpg" style="width: 45px; height: 45px;">
+                                <div class="ps-3">
+                                    <h6 class="fw-bold mb-1">Client Name</h6>
+                                    <small>Profession</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-item bg-light rounded p-3">
+                        <div class="bg-white border rounded p-4">
+                            <p>Tempor stet labore dolor clita stet diam amet ipsum dolor duo ipsum rebum stet dolor amet diam stet. Est stet ea lorem amet est kasd kasd erat eos</p>
+                            <div class="d-flex align-items-center">
+                                <img class="img-fluid flex-shrink-0 rounded" src="img/testimonial-2.jpg" style="width: 45px; height: 45px;">
+                                <div class="ps-3">
+                                    <h6 class="fw-bold mb-1">Client Name</h6>
+                                    <small>Profession</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-item bg-light rounded p-3">
+                        <div class="bg-white border rounded p-4">
+                            <p>Tempor stet labore dolor clita stet diam amet ipsum dolor duo ipsum rebum stet dolor amet diam stet. Est stet ea lorem amet est kasd kasd erat eos</p>
+                            <div class="d-flex align-items-center">
+                                <img class="img-fluid flex-shrink-0 rounded" src="img/testimonial-3.jpg" style="width: 45px; height: 45px;">
+                                <div class="ps-3">
+                                    <h6 class="fw-bold mb-1">Client Name</h6>
+                                    <small>Profession</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+        <!-- review End -->
+
+
+
+        
+{% endblock %}
+
+
+

@@ -1,0 +1,103 @@
+{% extends 'general/web_base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+
+        <!-- Header Start -->
+
+
+        <div class="container header bg-white p-0">
+            <div class="row g-0 align-items-center flex-column-reverse flex-md-row">
+                <div class="col-md-6 p-5 mt-lg-5">
+                    <h1 class="display-5 animated wow fadeInDown mb-4" data-wow-delay="0.1s">Categories</h1> 
+                        <nav aria-label="breadcrumb animated fadeIn">
+                        <ol class="breadcrumb text-uppercase">
+                            <li class="breadcrumb-item wow fadeInUp"><a href="{% url 'index' %}" data-wow-delay="0.2s">Home</a></li>
+                            <li class="breadcrumb-item wow fadeInUp"><a href="{% url 'categories' %}" data-wow-delay="0.2s">Categories</a></li>
+                        </ol>
+                    </nav>
+                    <!-- seach bar start -->
+    
+                    <!-- <a href="" class="btn btn-primary py-3 px-4 me-3 mx-5 mt-4  " id="search-btn"><i class="fas fa-search "></i><span class="ps-3 " style="letter-spacing: 2px;">Search</span></a> -->
+
+                    <!-- search bar ends  -->
+                </div>
+                <div class="col-md-6 animated fadeIn">
+                    <div class="owl-carousel header-carousel">
+                        <div class="owl-carousel-item">
+                            <img class="img-fluid" src="{% static 'webimg/BANNER 1000 X 1000/BANNER 1-1.jpg' %}" alt="" style="border-radius: 0px 0px 50px 50px;">
+                        </div>
+                        <div class="owl-carousel-item">
+                            <img class="img-fluid" src="{% static 'webimg/BANNER 1000 X 1000/BANNER 1-2.jpg' %}" alt="" style="border-radius: 0px 0px 50px 50px;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Header End -->
+
+
+
+        <!-- Product List Start -->
+        <div class="container-xxl py-5 pt-5">
+            <div class="container">
+                <div class="row g-0 gx-5 align-items-end">
+                    <div class="col-lg-6">
+                        <div class="text-start mx-auto mb-5 wow slideInLeft" data-wow-delay="0.1s">
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-content">
+                    <div id="tab-1" class="tab-pane fade show p-0 active">
+                        <div class="row g-4">
+                            {% for category in categories %}
+                            <div class="col-lg-3 col-md-6 col-sm-6 col-6 wow fadeInUp rounded" data-wow-delay="0.1s">
+                                <div class="property-item rounded overflow-hidden">
+                                    <div class="position-relative overflow-hidden">
+                                        <a href="{% url 'subcategories' category.pk %}"><img class="img-fluid" src="{{ category.imageURL }}" alt="{{ category.category }}"></a>
+                                    </div>
+                                    <div class="p-4 pb-0">
+                                        <a class="d-block h6 mb-5 text-center" href="">{{ category.category }}</a>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Property List End -->
+
+
+
+
+        <!-- Call to Action Start -->
+        <div class="container-xxl py-5">
+            <div class="container">
+                <div class="bg-light rounded p-3">
+                    <div class="bg-white rounded p-4" >
+                        <div class="row g-5 align-items-center">
+                            <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
+                                <img class="img-fluid rounded w-100" src="{% static 'webimg/CONTACT IMAGE 1000 X 700/contact image 2.jpg' %}" alt="">
+                            </div>
+                            <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
+                                <div class="mb-4">
+                                    <h1 class="mb-3">Contact With Our Team</h1>
+                                    <p>We encourage you to get in touch with our dedicated team for any inquiries, guidance, or assistance you may need. Our experts are ready to provide you with valuable information and support to ensure your construction projects run smoothly. Feel free to reach out via phone, email, or the contact form on our website.</p>
+                                </div>
+                                <a href="" class="btn btn-primary py-3 px-4 me-2"><i class="fa fa-phone-alt me-2"></i>Make A Call</a>
+                                <a href="" class="btn btn-dark py-3 px-4"><i class="fab fa-whatsapp me-2"></i>Whatsapp</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Call to Action End -->
+
+
+
+{% endblock %}

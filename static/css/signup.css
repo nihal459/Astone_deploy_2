@@ -1,0 +1,96 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+}
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    
+    background: radial-gradient(circle, #832de2, #4a00e0);
+    font-family: 'Nunito', sans-serif;
+    font-family: 'Poppins', sans-serif;
+    font-family: 'Quicksand', sans-serif;
+}
+.container{
+    width: 350px;
+    height: 620px;
+    padding: 20px;
+    justify-content: center;
+    align-items: center;
+    background-color: hsla(0, 0%, 100%, 0.916);
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgb(0, 0, 0, 0.5);
+    
+}
+form .user-box{
+    position: relative;
+    margin-top: 11px;
+    top: 18px;
+}
+form .user-box input{
+    width: 100%;
+    padding: 5px 0;
+    color: #555;
+    background: transparent;
+    font-size: 16px;
+    margin-bottom: 15px;
+    border: none;
+    outline: none;
+    border-bottom: 2px solid rgb(225, 224, 226);
+    /* top: 50px; */
+}
+form .user-box input:focus{
+    border-bottom: 2px solid rgb(100, 88, 108);
+    top: 50px;
+}
+form .user-box label{
+    position: absolute;
+    top: 2px;
+    left: 0;
+    font-size: 15px;
+    color: #555;
+    pointer-events: none;
+    transition: all .5s ease;
+    
+}
+form .user-box input:focus ~ label,
+form .user-box input:valid ~ label{
+    top: -20px;
+    left: 0;
+    color: indigo;
+    font-size: 15px;
+    font-weight: bold;
+}
+span{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+span label{
+    padding: 5px 20px;
+    font-size: 14px;
+    background-color: indigo;
+    color: #fff;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    position: relative;
+    top: 20px;
+    
+}
+span label:hover{
+    opacity: .9;
+}
+h3{
+    font-size: 25px;
+    color: indigo;
+    letter-spacing: 1px;
+    text-align: center;
+    
+   
+}

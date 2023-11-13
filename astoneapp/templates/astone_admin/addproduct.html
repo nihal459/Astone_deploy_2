@@ -1,0 +1,108 @@
+{% extends 'astone_admin/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+    .center-box {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .form-box {
+      width: 50%;
+      padding: 20px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    }
+</style>
+
+
+<br>
+<div class="container center-box">
+    <div class="form-box">
+      <h2 class="text-center">Add Product</h2>
+      <form action="{% url 'add_product' %}"  method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="productName">Product Name:</label>
+          <input type="text" class="form-control" id="productName" name="productName" required>
+        </div>
+        <div class="form-group">
+          <label for="category">Add Product Image:</label>
+          <select class="form-control" id="category" name="image" required>
+            {% for i in productimage %}
+            <option value="{{i.name}}">{{i.name}}</option>
+            {% endfor %}
+            <!-- Add category options here -->
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="description">Description:</label>
+          <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="category">Category:</label>
+          <select class="form-control" id="category" name="category" required>
+            {% for i in category %}
+            <option value="{{i.category}}">{{i.category}}</option>
+            {% endfor %}
+            <!-- Add category options here -->
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="subcategory">Subcategory:</label>
+          <select class="form-control" id="subcategory" name="subcategory" required>
+            {% for i in subcategory %}
+            <option value="{{i.name}}">{{i.name}}</option>
+            {% endfor %}
+            <!-- Add subcategory options here -->
+          </select>
+        </div>
+        <div class="form-group">
+            <label for="code">Product Code:</label>
+            <input type="text" class="form-control" id="code" name="code" required>
+        </div>
+        <div class="form-group">
+            <label for="advantages">Advantages:</label>
+            <textarea class="form-control" id="advantages" name="advantages" rows="3" required></textarea>
+        </div>
+        <div class="form-group">
+            <label for="surface">Suitable Surface:</label>
+            <textarea class="form-control" id="surface" name="surface" rows="3" required></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="application">Application:</label>
+            <textarea class="form-control" id="application" name="application" rows="3" required></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="info">Additional Information:</label>
+            <textarea class="form-control" id="info" name="info" rows="3" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="youtubeLink">YouTube Link:</label>
+          <input type="url" class="form-control" id="youtubeLink" name="youtubeLink">
+        </div>
+        <div class="form-group">
+          <label for="rewardAmount">Reward Amount:</label>
+          <input type="number" class="form-control" id="rewardAmount" name="rewardAmount" min="0">
+        </div>
+        <div class="form-group">
+          <label for="mrp">MRP:</label>
+          <input type="number" class="form-control" id="mrp" name="mrp" min="0">
+        </div>
+        <div class="form-group">
+          <label for="quantity">Quantity:</label>
+          <input type="number" class="form-control" id="quantity" name="quantity" min="1" required>
+        </div>        
+        <br>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+  </div>
+  <br>
+  <br>
+
+{% endblock %}

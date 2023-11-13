@@ -1,0 +1,43 @@
+{% extends 'astone_admin/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container-fluid px-4">
+    <h1 class="mt-4">View Enquiries</h1>
+
+</div>
+<div class="container mt-5">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>State</th>
+                <th>City</th>
+                <th>Area Of Concern</th>
+                <th>Description</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in enquiry %}
+            <tr>
+
+                <td>{{i.name}}</td>
+                <td>{{i.mobile_number}}</td>
+                <td>{{i.email}}</td>
+                <td>{{i.state}}</td>
+                <td>{{i.city}}</td>
+                <td>{{i.concern}}</td>
+                <td>{{i.description}}</td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+{% endblock %}

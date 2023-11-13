@@ -1,0 +1,33 @@
+{% extends 'astone_admin/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container-fluid px-4">
+    <h1 class="mt-4">View All Staffs</h1>
+
+</div>
+<div class="container mt-5">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>User Id</th>
+                <th>Username</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in staffs %}
+            <tr>
+                <td>{{i.pk}}</td>
+                <td>{{i.username}}</td>
+                <td><a href="{% url 'delete_staff' i.pk %}" class="btn btn-danger">Delete</a></td>
+            </tr>
+            {% endfor %}
+            <!-- Add more rows as needed -->
+        </tbody>
+    </table>
+</div>
+
+
+{% endblock %}

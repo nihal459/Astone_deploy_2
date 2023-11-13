@@ -1,0 +1,160 @@
+{% extends 'general/web_base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+        <!-- Header Start -->
+        <div class="container header bg-white p-0">
+            <div class="row g-0 align-items-center flex-column-reverse flex-md-row">
+                <div class="col-md-6 p-5 mt-lg-5">
+                    <h1 class="display-5 animated wow fadeInLeft mb-4" data-wow-delay="0.1s">Gallery</h1> 
+                        <nav aria-label="breadcrumb animated fadeIn">
+                        <ol class="breadcrumb text-uppercase">
+                            <li class="breadcrumb-item wow fadeInDown mb-4" data-wow-delay="0.3s"><a href="{% url 'index' %}">Home</a></li>
+                            <!-- <li class="breadcrumb-item"><a href="#">Pages</a></li> -->
+                            <li class="breadcrumb-item text-body active wow fadeInDown mb-4" aria-current="page" data-wow-delay="0.5s">Gallery</li>
+                        </ol>
+                    </nav>
+                    <!-- seach bar start -->
+    
+                    <!-- <a href="" class="btn btn-primary py-3 px-4 me-3 mx-5 mt-4  " id="search-btn"><i class="fas fa-search "></i><span class="ps-3 " style="letter-spacing: 2px;">Search</span></a> -->
+                    <div  class="btn btn-primary py-3 px-5 me-3 mx-5 mt-4  " id="search-btn"><i class="fas fa-search "></i><span class="ps-3 " style="letter-spacing: 1px;">Search</span></div>
+                    <form action="{% url 'products' %}" method="GET" class="search-form">
+                        <input type="search" name="search_query" id="search-box" placeholder="Search for a product...">
+                        <button type="submit" class="btnm"><label for="search-box" class="fas fa-search"></label></button>
+                    </form>
+                    <!-- search bar ends  -->
+                </div>
+                <div class="col-md-6 animated fadeIn">
+                    <div class="owl-carousel header-carousel">
+                        <div class="owl-carousel-item">
+                            <img class="img-fluid" src="{% static 'webimg/BANNER 1000 X 1000/BANNER 1-2.jpg' %}" alt="" style="border-radius: 0px 0px 50px 50px;">
+                        </div>
+                        <div class="owl-carousel-item">
+                            <img class="img-fluid" src="{% static 'webimg/BANNER 1000 X 1000/BANNER 1-1.jpg' %}" alt="" style="border-radius: 0px 0px 50px 50px;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Header End -->
+
+
+
+
+       <!-- Gallery Start -->
+       <div class="container-xxl py-5">
+        <div class="container">
+            <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+                <h1 class="mb-3"></h1>
+                <p>Eirmod sed ipsum dolor sit rebum labore magna erat. Tempor ut dolore lorem kasd vero ipsum sit eirmod sit. Ipsum diam justo sed rebum vero dolor duo.</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="team-item rounded overflow-hidden">
+                        <div class="position-relative">
+                            <img class="img-fluid" src="{% static 'webimg/GALLERY IMAGE 700 X 400/GALLERY IMAGE 1-2.jpg' %}" alt="">
+                            
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="team-item rounded overflow-hidden">
+                        <div class="position-relative">
+                            <img class="img-fluid" src="{% static 'webimg/GALLERY IMAGE 700 X 400/GALLERY IMAGE 2.jpg' %}" alt="">
+                           
+                        </div>
+                       
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                    <div class="team-item rounded overflow-hidden">
+                        <div class="position-relative">
+                            <img class="img-fluid" src="{% static 'webimg/GALLERY IMAGE 700 X 400/GALLERY IMAGE 3-1.jpg' %}" alt="">
+                            
+                        </div>
+                       
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
+                    <div class="team-item rounded overflow-hidden">
+                        <div class="position-relative">
+                            <img class="img-fluid" src="{% static 'webimg/GALLERY IMAGE 700 X 400/GALLERY IMAGE 4.jpg' %}" alt="">
+                           
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="row g-4 mt-2">
+                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.2s">
+                    <div class="team-item rounded overflow-hidden">
+                        <div class="position-relative">
+                            <img class="img-fluid" src="{% static 'webimg/GALLERY IMAGE 700 X 400/GALLERY IMAGE 3.jpg' %}" alt="">
+                            
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.4s">
+                    <div class="team-item rounded overflow-hidden">
+                        <div class="position-relative">
+                            <img class="img-fluid" src="{% static 'webimg/GALLERY IMAGE 700 X 400/GALLERY IMAGE 4.jpg' %}" alt="">
+                           
+                        </div>
+                       
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.6s">
+                    <div class="team-item rounded overflow-hidden">
+                        <div class="position-relative">
+                            <img class="img-fluid" src="{% static 'webimg/GALLERY IMAGE 700 X 400/GALLERY IMAGE 3-1.jpg' %}" alt="">
+                            
+                        </div>
+                       
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.8s">
+                    <div class="team-item rounded overflow-hidden">
+                        <div class="position-relative">
+                            <img class="img-fluid" src="{% static 'webimg/GALLERY IMAGE 700 X 400/GALLERY IMAGE 3-1.jpg' %}" alt="">
+                           
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- gallery End -->
+
+
+         <!-- Call to Action Start -->
+         <div class="container-xxl py-5">
+            <div class="container">
+                <div class="bg-light rounded p-3">
+                    <div class="bg-white rounded p-4" >
+                        <div class="row g-5 align-items-center">
+                            <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
+                                <img class="img-fluid rounded w-100" src="{% static 'webimg/CONTACT IMAGE 1000 X 700/contact image 2.jpg' %}" alt="">
+                            </div>
+                            <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
+                                <div class="mb-4">
+                                    <h1 class="mb-3">Contact With Our Team</h1>
+                                    <p>We encourage you to get in touch with our dedicated team for any inquiries, guidance, or assistance you may need. Our experts are ready to provide you with valuable information and support to ensure your construction projects run smoothly. Feel free to reach out via phone, email, or the contact form on our website.</p>
+                                </div>
+                                <a href="" class="btn btn-primary py-3 px-4 me-2"><i class="fa fa-phone-alt me-2"></i>Make A Call</a>
+                                <a href="" class="btn btn-dark py-3 px-4"><i class="fab fa-whatsapp me-2"></i>Whatsapp</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Call to Action End -->
+
+
+
+{% endblock %}

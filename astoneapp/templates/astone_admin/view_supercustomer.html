@@ -1,0 +1,63 @@
+{% extends 'astone_admin/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid px-4">
+    <h1 class="mt-4">View Super Customers      <a href="{% url 'view_users' %}" class="btn btn-success"><i class="fas fa-sync-alt"></i></a></h1>
+</div>
+
+<br>
+
+<form method="get" class="mb-4 px-4">
+    <div class="input-group">
+        <input type="text" name="query" class="form-control" placeholder="Search By Username / Name / Refferal Code" >
+        <button type="submit" class="btn btn-primary">Search</button>
+    </div>
+</form>
+
+<div class="container mt-5">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Unique User Id</th>
+                <th>Name</th>
+                <th>Username</th>
+                <th>Mobile Number</th>
+                <th>Bank Name</th>
+                <th>Bank Account Number</th>
+                <th>IFSC Code</th>
+                <th>UPI Id/Gpay No.</th>
+                <th>Refferal Code</th>
+                <th>Referred By</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in users %}
+            <tr>
+                <td>{{i.pk}}</td>
+                <td>{{i.name}}</td>
+                <td>{{i.username}}</td>
+                <td>{{i.mobile_number}}</td>
+                <td>{{i.bank_name}}</td>
+                <td>{{i.bank_account_number}}</td>
+                <td>{{i.ifsc_code}}</td>
+                <td>{{i.upi_id}}</td>
+                <td>{{i.referral_code}}</td>
+                <td>{{i.referred_by}}</td>
+
+                <td><a href="{% url 'viewusersingle' i.pk %}" class="btn btn-primary"><i class="fas fa-eye"></i></a></td>
+                <td><a href="{% url 'make_normalcustomer' i.pk %}" class="btn btn-warning"><i class="fas fa-user"></i></a></td>
+                <td><a href="{% url 'delete_user2' i.pk %}" class="btn btn-danger"><i class="fas fa-trash"></i></a></td>
+                
+
+            </tr>
+            {% endfor %}
+            <!-- Add more rows as needed -->
+        </tbody>
+    </table>
+</div>
+
+
+{% endblock %}

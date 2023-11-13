@@ -1,0 +1,73 @@
+{% extends 'general/web_base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+
+<div class="container header bg-white p-0">
+    <div class="row g-0 align-items-center flex-column-reverse flex-md-row">
+        <div class="col-md-6 p-5 mt-lg-5">
+            <h1 class="display-5 animated wow fadeInDown mb-4" data-wow-delay="0.1s">Subproducts</h1> 
+                <nav aria-label="breadcrumb animated fadeIn">
+                <ol class="breadcrumb text-uppercase">
+                    <li class="breadcrumb-item wow fadeInUp"><a href="{% url 'index' %}" data-wow-delay="0.2s">Home</a></li>
+                    <li class="breadcrumb-item wow fadeInUp"><a href="{% url 'categories' %}" data-wow-delay="0.2s">Categories</a></li>
+                    <li class="breadcrumb-item wow fadeInUp"><a href="#" data-wow-delay="0.2s">Subcategories</a></li>
+                    <li class="breadcrumb-item wow fadeInUp"><a href="#" data-wow-delay="0.2s">Subproducts</a></li>
+
+                </ol>
+            </nav>
+            <!-- seach bar start -->
+
+            <!-- <a href="" class="btn btn-primary py-3 px-4 me-3 mx-5 mt-4  " id="search-btn"><i class="fas fa-search "></i><span class="ps-3 " style="letter-spacing: 2px;">Search</span></a> -->
+            <div  class="btn btn-primary py-3 px-5 me-3 mx-5 mt-4  " id="search-btn"><i class="fas fa-search "></i><span class="ps-3 " style="letter-spacing: 1px;">Search</span></div>
+            <form action="{% url 'products' %}" method="GET" class="search-form">
+                <input type="search" name="search_query" id="search-box" placeholder="Search for a product...">
+                <button type="submit" class="btnm"><label for="search-box" class="fas fa-search"></label></button>
+            </form>
+            <!-- search bar ends  -->
+        </div>
+        <div class="col-md-6 animated fadeIn">
+            <div class="owl-carousel header-carousel">
+                <div class="owl-carousel-item">
+                    <img class="img-fluid" src="{% static 'webimg/BANNER 1000 X 1000/BANNER 1-1.jpg' %}" alt="" style="border-radius: 0px 0px 50px 50px;">
+                </div>
+                <div class="owl-carousel-item">
+                    <img class="img-fluid" src="{% static 'webimg/BANNER 1000 X 1000/BANNER 1-2.jpg' %}" alt="" style="border-radius: 0px 0px 50px 50px;">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Header End -->
+
+
+
+<div class="container-xxl py-5">
+    <div class="container">
+    
+        <div class="row g-5 align-items-center">
+            <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
+                <div class="about-img position-relative overflow-hidden p-5 pe-0">
+                    <img class="img-fluid w-100 " src="{{products.images.imageURL}}" style="border-radius: 0px 50px 50px 0px;">
+                </div>
+            </div>
+            <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
+                <h1 class="mb-4">{{products.name}}</h1>
+                <p class="mb-4">{{products.description}}</p>
+                <p><i class="fa fa-check text-primary me-3"></i>₹{{products.MRP}}/-</p>
+                <p><i class="fa fa-check text-primary me-3"></i> Advantages : {{products.advantages}}</p>
+                <p><i class="fa fa-check text-primary me-3"></i>Suitable Surface : {{products.suitable_surface}}</p>
+                <p><i class="fa fa-check text-primary me-3"></i> Additional Information : {{products.additional_information}}</p>
+                <p><i class="fa fa-check text-primary me-3"></i> Application : {{products.application}}</p>
+                  <iframe src="{{products.youtube_link}}"  style="height:250px;width: 100%;margin-bottom: 30px;box-shadow: 0 .5rem 1.5rem rgba(0,0,0,.1);" title="Iframe Example"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- About End -->
+
+
+
+{% endblock %}

@@ -1,0 +1,150 @@
+{% extends 'general/web_base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+
+        <!-- Header Start -->
+        <div class="container-xxl header bg-white p-0">
+            <div class="row g-0 align-items-center flex-column-reverse flex-md-row">
+                <div class="col-md-6 p-5 mt-lg-5">
+                    <h1 class="display-5 animated fadeIn mb-4">Contact Us</h1> 
+                        <nav aria-label="breadcrumb animated fadeIn">
+                        <ol class="breadcrumb text-uppercase">
+                            <li class="breadcrumb-item wow fadeInDown" data-wow-delay="0.1s"><a href="{% url 'index' %}">Home</a></li>
+                            <li class="breadcrumb-item text-body active wow fadeInDown" aria-current="page" data-wow-delay="0.4s">Contact</li>
+                        </ol>
+                    </nav>
+                    <!-- seach bar start -->
+    
+                    <!-- <a href="" class="btn btn-primary py-3 px-4 me-3 mx-5 mt-4  " id="search-btn"><i class="fas fa-search "></i><span class="ps-3 " style="letter-spacing: 2px;">Search</span></a> -->
+                    <div  class="btn btn-primary py-3 px-5 me-3 mx-5 mt-4  " id="search-btn"><i class="fas fa-search "></i><span class="ps-3 " style="letter-spacing: 1px;">Search</span></div>
+                    <form action="{% url 'products' %}" method="GET" class="search-form">
+                        <input type="search" name="search_query" id="search-box" placeholder="Search for a product...">
+                        <button type="submit" class="btnm"><label for="search-box" class="fas fa-search"></label></button>
+                    </form>
+                    <!-- search bar ends  -->
+                    {% if messages %}
+                        <ul class="messages">
+                        {% for message in messages %}
+                            <li{% if message.tags %} class="{{ message.tags }}"{% endif %} style="list-style-type:none; color:green; font-size:25px; font-weight:700;">{{ message }}</li>
+                        {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+                <div class="col-md-6 animated fadeIn">
+                    <div class="owl-carousel header-carousel">
+                        <div class="owl-carousel-item">
+                            <img class="img-fluid" src="{% static 'webimg/BANNER 1000 X 1000/BANNER 1-2.jpg' %}" alt="" style="border-radius: 0px 0px 50px 50px;">
+                        </div>
+                        <div class="owl-carousel-item">
+                            <img class="img-fluid" src="{% static 'webimg/BANNER 1000 X 1000/BANNER 1-1.jpg' %}" alt="" style="border-radius: 0px 0px 50px 50px;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Header End -->
+
+
+
+
+
+        <!-- Contact Start -->
+        <div class="container-xxl py-5">
+            <div class="container">
+                <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+                    <!-- <h1 class="mb-3">Contact Us</h1> -->
+                    <p>We encourage you to get in touch with our dedicated team for any inquiries, guidance, or assistance you may need. Our experts are ready to provide you with valuable information and support to ensure your construction projects run smoothly. Feel free to reach out via phone, email, or the contact form on our website.</p>
+                </div>
+                <div class="row g-4">
+                    <div class="col-12">
+                        <div class="row gy-4">
+                            <div class="col-md-6 col-lg-4 wow fadeIn" data-wow-delay="0.1s">
+                                <div class="bg-light rounded p-3">
+                                    <div class="d-flex align-items-center bg-white rounded p-3" style="border: 1px dashed rgba(0, 185, 142, .3)">
+                                        <div class="icon me-3" style="width: 45px; height: 45px;">
+                                            <i class="fa fa-map-marker-alt text-primary"></i>
+                                        </div>
+                                        <span>Thiruvallur, Chennai, India</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4 wow fadeIn" data-wow-delay="0.3s">
+                                <div class="bg-light rounded p-3">
+                                    <div class="d-flex align-items-center bg-white rounded p-3" style="border: 1px dashed rgba(0, 185, 142, .3)">
+                                        <div class="icon me-3" style="width: 45px; height: 45px;">
+                                            <i class="fa fa-envelope-open text-primary"></i>
+                                        </div>
+                                        <span>Inquiries.astone@gmail.com</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4 wow fadeIn" data-wow-delay="0.5s">
+                                <div class="bg-light rounded p-3">
+                                    <div class="d-flex align-items-center bg-white rounded p-3" style="border: 1px dashed rgba(0, 185, 142, .3)">
+                                        <div class="icon me-3" style="width: 45px; height: 45px;">
+                                            <i class="fa fa-phone-alt text-primary"></i>
+                                        </div>
+                                        <span>+91 9778272100</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15542.438148673282!2d79.90118506900518!3d13.123904402832265!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a52901710ff7ebb%3A0x38136c2ffb1168b4!2sThiruvallur%2C%20Tamil%20Nadu%20602003!5e0!3m2!1sen!2sin!4v1696832034100!5m2!1sen!2sin" 
+                        class="position-relative rounded w-100 h-100" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+         
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="wow fadeInUp" data-wow-delay="0.5s">
+                            <p class="mb-4">Enquire</p>
+                            <form action="{% url 'contact_enquiry' %}" method="POST">
+                                {% csrf_token %}
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control" id="name" placeholder="Your Name" name="name">
+                                            <label for="name">Your Name</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            <input type="email" class="form-control" id="email" placeholder="Your Email" name="email">
+                                            <label for="email">Your Email</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control" id="subject" placeholder="Subject" name="concern">
+                                            <label for="subject">Subject</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-floating">
+                                            <textarea class="form-control" placeholder="Leave a message here" id="message" style="height: 150px" name="description"></textarea>
+                                            <label for="message">Message</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <button class="btn btn-primary w-100 py-3" type="submit">Send Message</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Contact End -->
+
+
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,206 @@
+{% extends 'astone_admin/base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<style>
+    body {
+        background-color: #f5f5f5;
+    }
+    .center-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+    }
+    .profile-picture {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 20px;
+    }
+
+
+    .center {
+        display: flex;
+        justify-content: center; /* Horizontal centering */
+        align-items: center; /* Vertical centering */
+    }
+</style>
+</head>
+<body>
+{% if error_message %}
+    <p style="color: red; margin:20px; font-size:25px;">{{ error_message }}</p>
+{% else %}
+
+    <div class="container mt-4">
+        <div class="row center-content">
+            <div class="col-md-6 text-center">
+                <img src="{{get_user.imageURL}}" alt="Profile Picture" class="profile-picture">
+                <h1>{{ get_user.name }}</h1>
+                <p>User Id: {{ get_user.pk }}</p>
+                <p>Username: {{ get_user.username }}</p>
+                <p>Mobile Number: {{ get_user.mobile_number }}</p>
+                <p>Bank Name: {{ get_user.bank_name }}</p>
+                <p>Bank Account Number: {{ get_user.bank_account_number }}</p>
+                <p>IFSC Code: {{ get_user.ifsc_code }}</p>
+                <p>UPI ID / Gpay Number: {{ get_user.upi_id }}</p>
+                <p>PAN Card Name: {{ get_user.pan_card_name }}</p>
+                <p>PAN Card Number: {{ get_user.pan_card_number }}</p>
+                <p>Referral Code: {{ get_user.referral_code }}</p>
+                <p>Referred By: {{ get_user.referred_by }}</p>
+                <p>Super Customer: {% if get_user.supercustomer %}Yes{% else %}No{% endif %}</p>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="center">
+        <a href="{% url 'make_supercustomer' get_user.pk %}" class="btn btn-dark" style="color:gold;">Make Super Cusotmer</a>
+    </div>
+    <br>
+
+    <div class="center">
+        <a href="#" class="btn btn-success" style="color:white;">Total Rewards Earned: ₹{{total_reward_amount}}</a>
+    </div>
+
+    <br>
+
+    <div class="center">
+        <a href="#" class="btn btn-danger" style="color:white;">Total Rewards Withdrawn: ₹{{get_user.withdrawn}}</a>
+    </div>
+
+    <br>
+
+    <div class="center">
+        <a href="#" class="btn btn-warning" style="color:white; cursor:grab;">Balance Reward: ₹{{get_user.balance}}</a>
+    </div>
+
+    <hr>
+
+    <div class="center">
+        <a href="{% url 'viewrewardrequestsingle' get_user.pk %}" class="btn btn-secondary" style="color:white;">View Reward Requests</a>
+    </div>
+
+    <hr>
+    
+
+    <div class="container-fluid px-4">
+        <h1 class="mt-4" style="text-align:center;">View Referrals</h1>
+    </div>
+    <br>
+    
+    <div class="center">
+        <a href="#" class="btn btn-success" style="color:white;">Total Number Of Times Referral Code Has Been Used: {{total_referral_usage}}</a>
+    </div>
+    <br>
+
+    <div class="center">
+        <a href="#" class="btn btn-success" style="color:white;">Total Number Of Unique Users That Used This Referral Code: {{unique_users_count}}</a>
+    </div>
+    <div class="container mt-5">
+        <div style="max-height: 400px; overflow-y: auto;">
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>User Id</th>
+                    <th>Username</th>
+                    <th>Coupon Code</th>
+                    <th>Reward Amount</th>
+                    <th>Referral Code Used</th>
+                    <th>Product Id</th>
+                    <th>Product Name</th>
+                    <th>Product Price</th>
+                    <th>Scanned On</th>
+                    <th>Payment Status</th>
+
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in matching_referrals %}
+                <tr>
+                    <td><a href="{% url 'viewusersingle' i.userid %}" style="text-decoration:none; color:black;">{{i.userid}}</a></td>
+                    <td><a href="{% url 'viewusersingle' i.userid %}" style="text-decoration:none; color:black;">{{i.username}}</a></td>
+                    <td><a href="{% url 'viewproductsingle' i.productid %}" style="text-decoration:none; color:black;">{{i.couponcode}}</a></td>
+                    <td style="color:green; font-weight:600;">₹{{i.rewardamount}}</td>
+                    <td>{{i.refferalcode}}</td>
+                    <td><a href="{% url 'viewproductsingle' i.productid %}" style="text-decoration:none; color:black;">{{i.productid}}</a></td>
+                    <td><a href="{% url 'viewproductsingle' i.productid %}" style="text-decoration:none; color:black;">{{i.productname}}</a></td>
+                    <td>₹{{i.productprice}}</td>
+                    <td>{{i.scannedon|date:"d-m-Y"}}</td>
+                    <td>{{i.paymentstatus}}</td>
+
+                </tr>
+                {% endfor %}
+                <!-- Add more rows as needed -->
+            </tbody>
+        </table>
+        </div>
+    </div>
+
+    <br>
+    <hr>
+    <br>
+
+    <div class="container-fluid px-4">
+    <h1 class="mt-4" style="text-align:center;">View Rewards</h1>
+
+    </div>
+
+    <br>
+    
+    <div class="center">
+        <a href="#" class="btn btn-success" style="color:white;">Total Number Of Rewards Won: {{total_rewards}}</a>
+    </div>
+    <div class="container mt-5">
+        <div style="max-height: 400px; overflow-y: auto;">
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>User Id</th>
+                    <th>Username</th>
+                    <th>Coupon Code</th>
+                    <th>Reward Amount</th>
+                    <th>Referral Code Used</th>
+                    <th>Product Id</th>
+                    <th>Product Name</th>
+                    <th>Product Price</th>
+                    <th>Scanned On</th>
+                    <th>Payment Status</th>
+
+
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in matching_userid %}
+                <tr>
+                    <td>{{i.userid}}</td>
+                    <td>{{i.username}}</td>
+                    <td><a href="{% url 'viewproductsingle' i.productid %}" style="text-decoration:none; color:black;">{{i.couponcode}}</a></td>
+                    <td style="color:green; font-weight:600;">₹{{i.rewardamount}}</td>
+                    <td><a href="{% url 'viewusersingle2' i.refferalcode %}" style="text-decoration:none; color:black;">{{i.refferalcode}}</a></td>
+                    <td><a href="{% url 'viewproductsingle' i.productid %}" style="text-decoration:none; color:black;">{{i.productid}}</a></td>
+                    <td><a href="{% url 'viewproductsingle' i.productid %}" style="text-decoration:none; color:black;">{{i.productname}}</a></td>
+                    <td>₹{{i.productprice}}</td>
+                    <td>{{i.scannedon|date:"d-m-Y"}}</td>
+                    <td>{{i.paymentstatus}}</td>
+
+
+                </tr>
+                {% endfor %}
+                <!-- Add more rows as needed -->
+            </tbody>
+        </table>
+        </div>
+    </div>
+
+{% endif %}
+
+
+{% endblock %}

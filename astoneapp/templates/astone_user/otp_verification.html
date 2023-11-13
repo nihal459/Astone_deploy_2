@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css2/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700&family=Poppins:wght@100;300;400;600&family=Quicksand:wght@500&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/6bf2dfa19e.js" crossorigin="anonymous"></script>
+    <style>
+        .login {
+            color: white;
+            background-color: indigo;
+            padding: 10px;
+            border-radius: 10px;
+            border:none;
+            text-align:center;
+
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="{% static 'img/Astone Logo.png' %}" alt="">
+        </div>
+
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="user-box">
+                <p style="text-align:center; color:indigo;">Enter OTP Code:</p>
+                <input type="text" id="otp_code" name="otp_code" required>                
+                <label ></label>
+  
+            </div>
+            <br>
+
+            <span>
+                
+                <input type="submit" value="Verify OTP" class="login">
+                
+            </span>  
+            <br>
+
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %} style="list-style-type:none; color:red; font-weight:700;">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            <br>
+  
+        </form>
+
+
+
+           
+        </div>
+
+    </div>
+
+
+    
+
+    
+    <!-- bootstrap js  -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="{% static 'js2/bootstrap.js' %}"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
