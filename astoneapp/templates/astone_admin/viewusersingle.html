@@ -116,7 +116,6 @@
                     <th>Product Name</th>
                     <th>Product Price</th>
                     <th>Scanned On</th>
-                    <th>Payment Status</th>
 
                     <th></th>
                 </tr>
@@ -133,7 +132,6 @@
                     <td><a href="{% url 'viewproductsingle' i.productid %}" style="text-decoration:none; color:black;">{{i.productname}}</a></td>
                     <td>₹{{i.productprice}}</td>
                     <td>{{i.scannedon|date:"d-m-Y"}}</td>
-                    <td>{{i.paymentstatus}}</td>
 
                 </tr>
                 {% endfor %}
@@ -172,7 +170,6 @@
                     <th>Product Name</th>
                     <th>Product Price</th>
                     <th>Scanned On</th>
-                    <th>Payment Status</th>
 
 
                 </tr>
@@ -189,7 +186,6 @@
                     <td><a href="{% url 'viewproductsingle' i.productid %}" style="text-decoration:none; color:black;">{{i.productname}}</a></td>
                     <td>₹{{i.productprice}}</td>
                     <td>{{i.scannedon|date:"d-m-Y"}}</td>
-                    <td>{{i.paymentstatus}}</td>
 
 
                 </tr>

@@ -30,7 +30,7 @@
                 <th>Requested Amount</th>
                 <th>Requested On</th>
                 <th>Payment Status</th>
-                <th></th>
+                {% comment %} <th></th> {% endcomment %}
             </tr>
         </thead>
         <tbody>
@@ -41,7 +41,7 @@
                 <td style="color:green; font-weight:600;">₹{{i.rewardamount}}</td>
                 <td>{{ i.requestedon|date:"d-m-Y" }}</td>
                 <td>{{i.paymentstatus}}</td>
-                <td><a href="{% url 'update_request' i.pk %}" class="btn btn-primary">Update</a></td>
+                {% comment %} <td><a href="{% url 'update_request' i.pk %}" class="btn btn-primary">Update</a></td> {% endcomment %}
             </tr>
             {% endfor %}
             <!-- Add more rows as needed -->

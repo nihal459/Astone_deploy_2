@@ -36,7 +36,9 @@
                 <td>{{i.rewardamount}}</td>
                 <td>{{i.requestedon|date:"d-m-Y"}}</td>
                 <td>{{i.paymentstatus}}</td>
-                <td><a href="{% url 'update_request' i.pk %}" class="btn btn-primary">Update</a></td>
+                {% if i.paymentstatus != 'Paid' %}
+                    <td><a href="{% url 'update_request' i.pk %}" class="btn btn-primary">Update</a></td>
+                {% endif %}                
                 <td><a href="{% url 'delete_request' i.pk %}" class="btn btn-danger">Delete</a></td>
 
             </tr>

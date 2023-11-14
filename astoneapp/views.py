@@ -183,13 +183,66 @@ def viewrewardrequestsingle(request, pk):
     context = {'rewards':rewards}
     return render(request, 'astone_admin/viewrewardrequestsingle.html', context)
 
+# from decimal import Decimal
+
+# def update_request(request, pk):
+#     get_reward_req = get_object_or_404(Withdraw, pk=pk)
+#     amount_requested = get_reward_req.rewardamount
+
+#     getuser = get_reward_req.userid
+#     user = get_object_or_404(User, pk=getuser)
+
+#     totatreward = user.rewardamount
+#     balance = user.balance
+
+#     if request.method == "POST":
+#         payment_status = request.POST.get('payment_status', '') 
+
+#         if amount_requested <= balance:
+#             if payment_status == 'Paid':
+#                     user.withdrawn = user.withdrawn + amount_requested
+#                     user.balance = totatreward - user.withdrawn
+#                     user.save()
+
+#             get_reward_req.paymentstatus = payment_status
+#             get_reward_req.save()
+#             print("user:", user)
+#             print("user.balance:", user.balance)
+#             print("amount_requested:", amount_requested)
+
+#             return redirect('view_users')
+#         else:
+#             messages.error(request, 'Amount requested greater than users reward balance')
+#             return render(request, 'astone_admin/cash_error.html')
+#     else:
+#         context = {
+#             'get_reward_req': get_reward_req,
+#         }
+#         return render(request, 'astone_admin/update_request.html', context)
+
+
+
+
+
 from decimal import Decimal
 
 def update_request(request, pk):
     get_reward_req = get_object_or_404(Withdraw, pk=pk)
     amount_requested = get_reward_req.rewardamount
+
     getuser = get_reward_req.userid
     user = get_object_or_404(User, pk=getuser)
+    user_id = user.pk
+
+    user_referral_code = user.referral_code
+    matching_referrals = Qrcodescanner.objects.filter(refferalcode=user_referral_code)
+    matching_userid = Qrcodescanner.objects.filter(userid=user_id)
+
+    total_reward_amount = matching_userid.aggregate(Sum('rewardamount'))['rewardamount__sum'] or 0
+    user.rewardamount = total_reward_amount
+    user.balance = total_reward_amount - user.withdrawn
+    user.save()
+    
     totatreward = user.rewardamount
     balance = user.balance
 
@@ -208,15 +261,26 @@ def update_request(request, pk):
             print("user.balance:", user.balance)
             print("amount_requested:", amount_requested)
 
-            return redirect('view_requests')
+            return redirect('view_users')
         else:
             messages.error(request, 'Amount requested greater than users reward balance')
             return render(request, 'astone_admin/cash_error.html')
     else:
         context = {
             'get_reward_req': get_reward_req,
+            'totalreward':totatreward,
+            'balance':balance,
+            'user':user,
+            'amount_requested':amount_requested,
         }
         return render(request, 'astone_admin/update_request.html', context)
+
+
+
+
+
+
+
 
 def delete_request(request, pk):
     req = get_object_or_404(Withdraw, pk=pk)
@@ -1693,15 +1757,108 @@ def search_products(request):
     return render(request, 'astone_user/viewallproductsuser.html', context)
 
 
+# from django.http import HttpResponse
+# from io import BytesIO
+# from PIL import Image
+# from reportlab.lib.pagesizes import letter
+# from reportlab.pdfgen import canvas
+
+# def customer_render_pdf_view(request):
+#     if request.method == 'POST':
+#         selected_item_ids = request.POST.getlist('selected_items') 
+#         pdf_cart_items = PdfCartItem.objects.filter(pk__in=selected_item_ids)
+
+#         # Create a Django response object with content_type as pdf
+#         response = HttpResponse(content_type='application/pdf')
+#         response['Content-Disposition'] = 'filename="product.pdf"'
+
+#         # Create a PDF document using BytesIO
+#         pdf_buffer = BytesIO()
+
+#         # Initialize variables for arranging items
+#         items_per_row = 2
+#         rows_per_page = 8
+#         items_on_current_row = 0
+#         rows_on_current_page = 0
+#         x_offset = 0
+#         y_offset = 0
+#         x_spacing = 300  # Adjust as needed
+#         y_spacing = 200  # Adjust as needed
+
+#         # Create a ReportLab PDF canvas
+#         c = canvas.Canvas(pdf_buffer, pagesize=letter)
+
+
+#         # Generate PDF content dynamically
+#         for item in pdf_cart_items:
+#             if items_on_current_row >= items_per_row:
+#                 items_on_current_row = 0
+#                 x_offset = 0
+#                 y_offset += y_spacing
+
+#             if rows_on_current_page >= rows_per_page:
+#                 c.showPage()
+#                 rows_on_current_page = 0
+#                 y_offset = 0
+
+#             # Load the card image
+#             card_image_path = 'static/img/1.png'
+#             card_image = Image.open(card_image_path)
+
+#             # Position the card image on the page
+#             c.drawImage(card_image_path, x=x_offset, y=y_offset, width=250, height=150)
+
+#             # Load the QR code image from the PdfCartItem model
+#             qr_code_image_path = item.product.qr_code.path
+
+#             # Position the QR code image on top of the card image
+#             c.drawImage(qr_code_image_path, x=x_offset + 180, y=y_offset + 50, width=50, height=50)
+
+#             c.setFont("Helvetica-Bold", 6.5)
+#             c.setFillColorRGB(255, 255, 255)
+
+#             # Display the "Reward Inside" text below the QR code
+#             reward_text = f"Reward: Rs.{item.product.reward_amount}/-"
+#             c.drawString(x_offset + 177, y_offset + 39, reward_text)
+
+#             reward_code = f"Coupon Code: {item.product.coupon_code}"
+#             c.drawString(x_offset + 169, y_offset + 27, reward_code)
+
+#             # Update offsets and counters
+#             x_offset += x_spacing
+#             items_on_current_row += 1
+#             rows_on_current_page += 1
+
+#         for item in pdf_cart_items:
+#             product = item.product
+#             product.pdf = True
+#             product.save()
+#         # Save the PDF content to the response
+#         c.save()
+#         pdf_buffer.seek(0)
+#         response.write(pdf_buffer.read())
+#         pdf_buffer.close()
+
+#         return response
+
+#     else:
+#         # Handle GET request or other cases here
+#         pass
+
+
+
+
 from django.http import HttpResponse
 from io import BytesIO
 from PIL import Image
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
+from .models import Cardimage
+from .models import PdfCartItem
 
 def customer_render_pdf_view(request):
     if request.method == 'POST':
-        selected_item_ids = request.POST.getlist('selected_items') 
+        selected_item_ids = request.POST.getlist('selected_items')
         pdf_cart_items = PdfCartItem.objects.filter(pk__in=selected_item_ids)
 
         # Create a Django response object with content_type as pdf
@@ -1724,7 +1881,6 @@ def customer_render_pdf_view(request):
         # Create a ReportLab PDF canvas
         c = canvas.Canvas(pdf_buffer, pagesize=letter)
 
-
         # Generate PDF content dynamically
         for item in pdf_cart_items:
             if items_on_current_row >= items_per_row:
@@ -1737,9 +1893,9 @@ def customer_render_pdf_view(request):
                 rows_on_current_page = 0
                 y_offset = 0
 
-            # Load the card image
-            card_image_path = 'static/img/1.png'
-            card_image = Image.open(card_image_path)
+            # Load the card image from the Cardimage model
+            card_image = Cardimage.objects.get(name='Card')  # Replace 'your_image_name' with the actual name or identifier
+            card_image_path = card_image.image.path
 
             # Position the card image on the page
             c.drawImage(card_image_path, x=x_offset, y=y_offset, width=250, height=150)
@@ -1765,10 +1921,13 @@ def customer_render_pdf_view(request):
             items_on_current_row += 1
             rows_on_current_page += 1
 
-        for item in pdf_cart_items:
+            # Set product.pdf to True and save the product
             product = item.product
             product.pdf = True
             product.save()
+
+        # Rest of your code...
+
         # Save the PDF content to the response
         c.save()
         pdf_buffer.seek(0)

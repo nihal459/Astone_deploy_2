@@ -14,4 +14,4 @@ admin.site.register(Productimage)
 admin.site.register(Business)
 admin.site.register(PdfCartItem)
 admin.site.register(Withdraw)
-
+admin.site.register(Cardimage)

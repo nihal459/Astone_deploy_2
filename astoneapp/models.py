@@ -50,6 +50,25 @@ class Productimage(models.Model):
         return  url
 
 
+
+class Cardimage(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    image = models.ImageField(upload_to='card_images', blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+    @property
+    def imageURL(self):
+        try:
+            url = self.image.url
+        except:
+            url = ''
+        return  url
+
+
+
+
 class Product(models.Model):
     name = models.CharField(max_length=200, null=True, blank=True)
     images = models.ForeignKey(Productimage, on_delete=models.CASCADE, null=True,blank=True)

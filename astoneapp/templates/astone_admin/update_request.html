@@ -5,7 +5,16 @@
 <div class="container">
     <h2 style="text-align: center;" class="pt-5 pb-5">Update Reward request Payment Status</h2>
 </div>
-
+<br>
+<div class="text-center">
+    <h5>User: <span style="color:red;">{{user}}</span></h5>
+    <h5>Total Reward Earned: <span style="color:green;">₹{{totalreward}}/-</span></h5>
+    <h5>Total Balance: <span style="color:orange;">₹{{balance}}/-</span></h5>
+    <br>
+    <h5>Amount Requested:<span style="color:blue;">₹{{amount_requested}}/-</span></h5>
+</div>
+<br>
+<br>
 <form action="{% url 'update_request' get_reward_req.pk %}" method="POST" enctype="multipart/form-data" style="width: 500px; margin: auto;">
     {% csrf_token %}
     <div class="form-group">
